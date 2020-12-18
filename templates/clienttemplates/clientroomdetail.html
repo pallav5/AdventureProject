@@ -1,0 +1,499 @@
+
+
+
+{% extends 'clienttemplates/clientbase.html' %}
+
+{% block css %}
+    <style>
+    @media (max-width:1281px),(min-width:801px) {
+
+         .d-block {
+            width: auto;
+            height: 70px;
+        }
+
+
+
+        .carousel-inner > .carousel-item > img {
+            width: 800px;
+            height: 480px;
+        }
+    }
+
+   @media only screen and (max-device-width: 480px){
+         .carousel-inner > .carousel-item > img {
+            width:600px;
+            height: 230px;
+        }
+        .d-block {
+            width: auto;
+            height: 33px;
+        }
+
+    }
+
+
+     .roberto-contact-form{
+        font-size: 15px;
+
+    }
+    .roberto-contact-form .form-control {
+
+    font-size: 17px;
+    border: 1px solid lightgray;
+}
+
+
+    </style>
+{% endblock %}
+
+{% block content %}
+
+
+
+ <!-- Breadcrumb Area Start -->
+    <div class="breadcrumb-area bg-img bg-overlay jarallax" style="background-image: url({{ org.profile_image.url}});">
+        <div class="container h-100">
+            <div class="row h-100 align-items-end">
+                <div class="col-12">
+                    <div class="breadcrumb-content d-flex align-items-center justify-content-between pb-5">
+                        <h2 class="room-title">{{ clientroomdetail.type }} Room</h2>
+                        <h2 class="room-price text-white">Rs. {{ clientroomdetail.price }} <span>/ Per Night</span></h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb Area End -->
+
+
+
+
+
+
+
+
+    <!-- Rooms Area Start -->
+    <div class="roberto-rooms-area ">
+        <div class="container mt-50">
+            <div class="row">
+                <div class="col-12 col-lg-8  ">
+                    <!-- Single Room Details Area -->
+                    <div class="single-room-details-area mb-50">
+                        <!-- Room Thumbnail Slides -->
+                        <div class="room-thumbnail-slides mb-50">
+                            <div id="room-thumbnail--slide" class="carousel slide" data-ride="carousel">
+                                <div class="carousel-inner h-25 ">
+                                    <div class="carousel-item active ">
+                                        <img src="{{ clientroomdetail.image.url}}" class=" img-responsive d-block" alt="">
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img src="{{ clientroomdetail.image1.url}}" class="d-block w-100 " alt="">
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img src="{{ clientroomdetail.image2.url}}" class="d-block w-100" alt="">
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img src="{{ clientroomdetail.image3.url}}" class="d-block w-100" alt="">
+                                    </div>
+
+                                </div>
+
+                                <ol class="carousel-indicators">
+                                    <li data-target="#room-thumbnail--slide" data-slide-to="0" class="active">
+                                        <img src="{{ clientroomdetail.image.url}}"  class="d-block w-100" alt="">
+                                    </li>
+                                    <li data-target="#room-thumbnail--slide" data-slide-to="1">
+                                        <img src="{{ clientroomdetail.image1.url}}" class="d-block w-100" alt="">
+                                    </li>
+                                    <li data-target="#room-thumbnail--slide" data-slide-to="2">
+                                        <img src="{{ clientroomdetail.image2.url}}" class="d-block w-100" alt="">
+                                    </li>
+                                    <li data-target="#room-thumbnail--slide" data-slide-to="3">
+                                        <img src="{{ clientroomdetail.image3.url}}" class="d-block w-100" alt="">
+                                    </li>
+
+                                </ol>
+                            </div>
+                        </div>
+
+                        <!-- Room Features -->
+                        <div class="room-features-area d-flex flex-wrap mb-50">
+                            <h6>Size: <span>{{ clientroomdetail.size }}sqf</span></h6>
+                            <h6>Capacity: <span>Max persion {{ clientroomdetail.max_person }}</span></h6>
+                            <h6>Bed: <span>{{ clientroomdetail.no_of_beds}}</span></h6>
+                            <h6>Price <span>Rs. {{ clientroomdetail.price}} </span></h6>
+                        </div>
+
+                        <p>{{ clientroomdetail.description }}</p>
+
+
+                       </div>
+
+                    <!-- Room Service -->
+                    <div class="room-service mb-50 shadow-lg p-3 mb-5 bg-white rounded">
+                        <h4>Room Services</h4>
+
+
+
+
+
+                        <ul>
+                             {% for foo in clientroomdetail.services.all %}
+                            <li><img src="{{ foo.icon.url}}" alt=""> {{ foo.title}}</li>
+{#                            <li><img src="{{ foo.icon.url}}" alt=""> Free drinks</li>#}
+{#                            <li><img src="{{ foo.icon.url}}" alt=""> Restaurant quality</li>#}
+{#                            <li><img src="img/core-img/icon4.png" alt=""> Cable TV</li>#}
+{#                            <li><img src="img/core-img/icon5.png" alt=""> Unlimited Wifi</li>#}
+{#                            <li><img src="img/core-img/icon6.png" alt=""> Service 24/24</li>#}
+                       {% endfor %}
+                        </ul>
+
+                    </div>
+
+
+                {% if roomreviews  %}
+
+
+                    <!-- Room Review -->
+                    <div class="room-review-area mb-100 shadow-lg p-3 mb-5 bg-white rounded">
+                        <h4>Room Reviews</h4>
+
+                        <!-- Single Review Area -->
+                        {% for roomreview in roomreviews %}
+
+
+
+                        <div class="single-room-review-area d-flex align-items-center">
+                            <div class="reviwer-thumbnail">
+                                <img src="{{ roomreview.image.url}}" alt="">
+                            </div>
+                            <div class="reviwer-content">
+                                <div class="reviwer-title-rating d-flex align-items-center justify-content-between">
+                                    <div class="reviwer-title">
+                                        <span>{{ roomreview.created_at}}</span>
+                                        <h6>{{ roomreview.name}} <small>({{ roomreview.profession }})</small></h6>
+                                    </div>
+
+                                </div>
+                                <p class="text-justify">{{ roomreview.quote }}</p></div>
+                        </div>
+
+                         {% endfor %}
+
+
+                    </div>
+                {% endif %}
+                <!-- Leave A Reply -->
+
+{#                    <div class="roberto-contact-form text-center shadow-lg p-3 mb-5 bg-white rounded font-weight-bolder mt-80 mb-100">#}
+{#                        <h2 >Leave a Room Review</h2>#}
+{##}
+{#                        <!-- Form -->#}
+{#                        <form action="{% url 'adventureapp:clientroomreviewfromdetail' clientroomdetail.id %}" enctype="multipart/form-data" method="post">#}
+{#                            {% csrf_token %}#}
+{#                            <div class="row">#}
+{#                                <div class="col-6">#}
+{#                                     <label for="checkIn">Name<small>*</small> </label>#}
+{#                                    {{ roomreviewform.name }}#}
+{#                                </div>#}
+{#                                <div class="col-6">#}
+{#                                    <label for="checkIn">Address<small>*</small> </label>#}
+{#                                    {{ roomreviewform.address}}#}
+{##}
+{#                                </div>#}
+{#                                <div class="col-6"><br>#}
+{#                                    <label for="checkIn">Image(If you want)</label>#}
+{#                                    {{ roomreviewform.image }}#}
+{##}
+{#                                </div>#}
+{#                                <div class="col-6"><br>#}
+{#                                    <label for="checkIn">Profession(If you want to specify)</label>#}
+{#                                    {{ roomreviewform.profession }}#}
+{##}
+{#                                </div>#}
+{#                                <div class="col-12"><br>#}
+{#                                     <label for="checkIn">Review<small>*</small> </label>#}
+{#                                    {{ roomreviewform.quote}}#}
+{##}
+{#                                </div>#}
+{#                                <div class="col-12">#}
+{#                                    <button type="submit" class="btn  roberto-btn btn-3 mt-15">Post review</button>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </form>#}
+{#                    </div>#}
+                </div>
+
+
+
+
+                <div class="col-12 col-lg-4 ">
+                     <button data-toggle="modal" data-target="#myModal" data-toggle="modal" data-target="#myModal" style="background: maroon" class="btn  btn-lg text-center text-white"> <i class="fa fa-pencil" aria-hidden="true"></i>
+    Write a review</button>
+
+
+
+  <!-- The Modal -->
+  <div class="modal fade" id="myModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+
+
+        <!-- Modal body -->
+        <div class="modal-body">
+
+           <div class="roberto-contact-form-area">
+        <div class="container  shadow-lg p-3 mb-5 bg-white rounded">
+        <div class=" p-3" style="background: maroon">
+         <h4 class="text-white ">Book this room now!</h4>
+            </div>
+            <div class="row">
+
+                <div class="col-12">
+                    <!-- Form -->
+                    <div class="roberto-contact-form  ">
+
+                         <form id="booking_form" action="{% url 'adventureapp:clientroombookfromdetail' clientroomdetail.id %}" method="post">
+                        {% csrf_token %}
+                        <div class="  row justify-content-between align-items-end">
+
+
+                            <div class=" col-lg-6 col-sm-12">
+
+                                <label for="checkIn">First Name<small>*</small> </label>
+                                {{ bookfromdetailform.first_name }}
+                            </div>
+
+                            <div class="col-lg-6 col-sm-12">
+                                <br>
+                                <label for="checkIn">Last Name<small>*</small></label>
+                                {{ bookfromdetailform.last_name }}
+                            </div>
+
+
+                             <div class=" col-lg-6 col-sm-12">
+                                 <br>
+                                <label for="checkIn">Email<small>*</small></label>
+                                {{ bookfromdetailform.email }}
+                            </div>
+
+                            <div class="col-lg-6 col-sm-12">
+                                <br>
+                                <label for="checkIn">Address<small>*</small></label>
+                                {{ bookfromdetailform.address }}
+                            </div>
+
+
+
+                             <div class=" col-lg-12 col-sm-12">
+
+                                <br>
+                                <label >Phone Number<small>*</small></label>
+                                {{bookfromdetailform.phone}}
+                            </div>
+
+
+
+                            <div class="col-lg-6 col-sm-12">
+
+                                <br>
+                                <label for="checkIn">Check In<small>*</small></label>
+
+                                {{ bookfromdetailform.check_in }}
+                            </div>
+                            <div class="col-lg-6 col-sm-12"><br>
+                                <label for="checkOut">Check Out<small>*</small></label>
+
+                                {{ bookfromdetailform.check_out }}
+                            </div>
+                            <div class="col-lg-12 col-sm-12"><br>
+                                <label  for="checkOut">Message(optional):</label >
+
+                                {{ bookfromdetailform.description }}
+
+                            </div>
+
+                              <div class="col-lg-12 col-sm-12"><br>
+                                <label  for="checkOut">Anti spam Quiz!</label >
+                              {{ bookfromdetailform.captcha }}
+
+                                {{ reviewform.captcha}} {% for field in form %}
+                                                    {% if field.errors %}
+                                                  {{ field.errors }}
+                                              {% else %}
+                                              {% endif %}
+                                                {% endfor %}
+
+                            </div>
+
+                             <div class="col-12 text-center wow fadeInUp" data-wow-delay="100ms">
+                                    <button id="button" type="submit" class="btn roberto-btn mt-15">Book Now</button>
+                                </div>
+                        </div>
+                    </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>
+
+        <!-- Modal footer -->
+{#        <div class="modal-footer">#}
+{#          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>#}
+{#        </div>#}
+
+      </div>
+    </div>
+  </div>
+                </div>
+
+
+
+
+{##}
+{#                    <!-- Hotel Reservation Area -->#}
+{#                    <div  class="hotel-reservation--area text-center  shadow-lg p-3 mb-5 bg-white rounded ">#}
+{##}
+{#                        <div ><h3 class="text-center " >Book this room</h3> <br>#}
+{#                       </div>#}
+{#                            <form id="booking_form" action="{% url 'adventureapp:clientroombookfromdetail' clientroomdetail.id %}" method="post">#}
+{#                        {% csrf_token %}#}
+{#                        <div class="  row justify-content-between align-items-end">#}
+{##}
+{##}
+{#                            <div class=" col-lg-12 col-sm-12">#}
+{##}
+{#                                <label for="checkIn">First Name<small>*</small> </label>#}
+{#                                {{ bookfromdetailform.first_name }}#}
+{#                            </div>#}
+{##}
+{#                            <div class="col-lg-12 col-sm-12">#}
+{#                                <br>#}
+{#                                <label for="checkIn">Last Name<small>*</small></label>#}
+{#                                {{ bookfromdetailform.last_name }}#}
+{#                            </div>#}
+{##}
+{##}
+{#                             <div class=" col-lg-12 col-sm-12">#}
+{#                                 <br>#}
+{#                                <label for="checkIn">Email<small>*</small></label>#}
+{#                                {{ bookfromdetailform.email }}#}
+{#                            </div>#}
+{##}
+{#                            <div class="col-lg-12 col-sm-12">#}
+{#                                <br>#}
+{#                                <label for="checkIn">Address<small>*</small></label>#}
+{#                                {{ bookfromdetailform.address }}#}
+{#                            </div>#}
+{##}
+{##}
+{##}
+{#                             <div class=" col-lg-12 col-sm-12">#}
+{##}
+{#                                <br>#}
+{#                                <label >Phone Number<small>*</small></label>#}
+{#                                {{bookfromdetailform.phone}}#}
+{#                            </div>#}
+{##}
+{##}
+{##}
+{#                            <div class="col-lg-12 col-sm-12">#}
+{##}
+{#                                <br>#}
+{#                                <label for="checkIn">Check In<small>*</small></label>#}
+{##}
+{#                                {{ bookfromdetailform.check_in }}#}
+{#                            </div>#}
+{#                            <div class="col-lg-12 col-sm-12"><br>#}
+{#                                <label for="checkOut">Check Out<small>*</small></label>#}
+{##}
+{#                                {{ bookfromdetailform.check_out }}#}
+{#                            </div>#}
+{#                            <div class="col-lg-12 col-sm-12"><br>#}
+{#                                <label  for="checkOut">Description:</label >#}
+{##}
+{#                                {{ bookfromdetailform.description }}#}
+{##}
+{#                            </div>#}
+{##}
+{#                             <div class="col-12 text-center wow fadeInUp" data-wow-delay="100ms">#}
+{#                                    <button id="button" type="submit" class="btn roberto-btn mt-15">Book Now</button>#}
+{#                                </div>#}
+{#                        </div>#}
+{#                    </form>#}
+{#                    </div>#}
+{#                </div>#}
+
+
+
+            </div>
+        </div>
+    </div>
+    <!-- Rooms Area End -->
+
+    <!-- Call To Action Area Start -->
+    <section class="roberto-cta-area">
+        <div class="container">
+            <div class="cta-content bg-img bg-overlay jarallax" style="background-image: url({{ org.profile_image.url}});">
+                <div class="row align-items-center">
+                    <div class="col-12 col-md-7">
+                        <div class="cta-text mb-50">
+                            <h2>Contact us now!</h2>
+                            <h6>Contact (+12) 345-678-9999 to book directly or for advice</h6>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-5 text-right">
+                        <a href="#" class="btn roberto-btn mb-50">Contact Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Call To Action Area End -->
+
+{% endblock %}
+
+
+
+{% block js %}
+
+{#    <script type="text/javascript">#}
+{##}
+{# $(document).ready(function(){#}
+{#   $("#booking_form").submit(function(e){#}
+{#	// prevent from normal form behaviour#}
+{#       e.preventDefault();#}
+{#       $('#button').attr("disabled", true);#}
+{##}
+{#    	// serialize the form data#}
+{#      	var serializedData = $(this).serialize();#}
+{#      	$.ajax({#}
+{#      		type : 'POST',#}
+{#      		url :  "{% url 'adventureapp:clientroombookfromdetail' clientroomdetail.id %}",#}
+{#      		data : serializedData,#}
+{#      		success : function(response){#}
+{#			//reset the form after successful submit#}
+{#                $("#booking_form")[0].reset()#}
+{##}
+{#      		},#}
+{#      		error : function(response){#}
+{#      			console.log(response)#}
+{#      		},#}
+{#            complete: function() {#}
+{#                //Ajax request is finished, so we can enable#}
+{#                //the button again.#}
+{#                $('#button').attr("disabled", false);#}
+{#            }#}
+{##}
+{#      	});#}
+{#   });#}
+{#   });#}
+{##}
+{##}
+{#    </script>#}
+{% endblock %}

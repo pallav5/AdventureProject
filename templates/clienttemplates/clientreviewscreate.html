@@ -1,0 +1,501 @@
+
+
+
+{% extends 'clienttemplates/clientbase.html' %}
+
+{% block css %}
+    <style>
+    #team {
+    background: #eee !important;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+    background-color: #7C0000;
+    border-color: #7C0000;
+    box-shadow: none;
+    outline: none;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #7C0000;
+    border-color: #7C0000;
+}
+
+section {
+    padding: 60px 0;
+}
+
+section .section-title {
+    text-align: center;
+    color: #7C0000;
+    margin-bottom: 50px;
+    text-transform: uppercase;
+}
+
+#team .card {
+    border: none;
+    background: #ffffff;
+}
+
+.image-flip:hover .backside,
+.image-flip.hover .backside {
+    -webkit-transform: rotateY(0deg);
+    -moz-transform: rotateY(0deg);
+    -o-transform: rotateY(0deg);
+    -ms-transform: rotateY(0deg);
+    transform: rotateY(0deg);
+    border-radius: .25rem;
+}
+
+.image-flip:hover .frontside,
+.image-flip.hover .frontside {
+    -webkit-transform: rotateY(180deg);
+    -moz-transform: rotateY(180deg);
+    -o-transform: rotateY(180deg);
+    transform: rotateY(180deg);
+}
+
+.mainflip {
+    -webkit-transition: 1s;
+    -webkit-transform-style: preserve-3d;
+    -ms-transition: 1s;
+    -moz-transition: 1s;
+    -moz-transform: perspective(1000px);
+    -moz-transform-style: preserve-3d;
+    -ms-transform-style: preserve-3d;
+    transition: 1s;
+    transform-style: preserve-3d;
+    position: relative;
+}
+
+.frontside {
+    position: relative;
+    -webkit-transform: rotateY(0deg);
+    -ms-transform: rotateY(0deg);
+    z-index: 2;
+    margin-bottom: 30px;
+}
+
+.backside {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: white;
+    -webkit-transform: rotateY(-180deg);
+    -moz-transform: rotateY(-180deg);
+    -o-transform: rotateY(-180deg);
+    -ms-transform: rotateY(-180deg);
+    transform: rotateY(-180deg);
+    -webkit-box-shadow: 5px 7px 9px -4px rgb(158, 158, 158);
+    -moz-box-shadow: 5px 7px 9px -4px rgb(158, 158, 158);
+    box-shadow: 5px 7px 9px -4px rgb(158, 158, 158);
+}
+
+.frontside,
+.backside {
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -ms-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transition: 1s;
+    -webkit-transform-style: preserve-3d;
+    -moz-transition: 1s;
+    -moz-transform-style: preserve-3d;
+    -o-transition: 1s;
+    -o-transform-style: preserve-3d;
+    -ms-transition: 1s;
+    -ms-transform-style: preserve-3d;
+    transition: 1s;
+    transform-style: preserve-3d;
+}
+
+.frontside .card,
+.backside .card {
+    min-height: 312px;
+}
+
+.backside .card a {
+    font-size: 18px;
+    color: #7C0000 !important;
+}
+
+.frontside .card .card-title,
+.backside .card .card-title {
+    color: #7C0000 !important;
+}
+
+.frontside .card .card-body img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+}
+
+
+
+    @media only screen and (max-width:1281px),(min-width:801px) {
+
+         .backside .card{
+             width: 350px;
+        }
+
+
+    }
+    @media only screen and (device-width: 768px) {
+
+          .backside .card{
+             width: 215px;
+        }
+
+    }
+
+    @media only screen
+  and (min-device-width: 1024px)
+  and (max-device-width: 1366px)
+  and (-webkit-min-device-pixel-ratio: 2){
+
+         .backside .card{
+             width: 280px;
+        }
+
+    }
+
+
+     @media only screen and (max-device-width: 736px){
+          .backside .card{
+             width: 355px;
+        }
+
+
+    }  @media only screen and (max-device-width: 375px){
+          .backside .card{
+             width: 305px;
+        }
+
+
+    }@media only screen and (max-device-width: 320px){
+          .backside .card{
+             width: 260px;
+        }
+
+
+    }
+
+
+
+    </style>
+
+
+
+{% endblock %}
+
+{% block content %}
+ <!-- Breadcrumb Area Start -->
+    <div class="breadcrumb-area bg-img bg-overlay jarallax" style="background-image: url({{ org.profile_image.url}});">
+        <div class="container h-100">
+            <div class="row h-100 align-items-center">
+                <div class="col-12">
+                    <div class="breadcrumb-content text-center">
+                        <h2 class="page-title"> Reviews</h2>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb justify-content-center">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Reviews</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+<section id="team" class="pb-5">
+<div class="container">
+    <div class="container">
+    <div  class="col text-center pb-5">
+
+    <button data-toggle="modal" data-target="#myModal" data-toggle="modal" data-target="#myModal" style="background: maroon" class="btn  btn-lg text-center text-white"> <i class="fa fa-pencil" aria-hidden="true"></i>
+    Write a review</button>
+
+
+
+  <!-- The Modal -->
+  <div class="modal fade" id="myModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+
+
+        <!-- Modal body -->
+        <div class="modal-body">
+
+           <div class="roberto-contact-form-area">
+        <div class="container  shadow-lg p-3 mb-5 bg-white rounded">
+        <div class=" p-3" style="background: maroon">
+         <h4 class="text-white ">Write a review message!</h4>
+            </div>
+            <div class="row">
+
+                <div class="col-12">
+                    <!-- Form -->
+                    <div class="roberto-contact-form  ">
+                        <form id="review_form" class="font-weight-bolder" action="{% url 'adventureapp:clientreviewcreate' %}" method="post">
+                        {% csrf_token %}
+                        <div class="row  justify-content-between align-items-end">
+
+                             <div class="col-lg-12 col-sm-12">
+                                <br>
+                                <label for="checkIn">Topic<small>*</small></label>
+                                {{ reviewform.topic }}
+                            </div>
+                            <div class="  col-lg-6 col-sm-12">
+
+                                <label  for="checkIn">First Name<small>*</small> </label>
+                                {{ reviewform.name }}
+                            </div>
+
+
+
+
+                             <div class="col-lg-6 col-sm-12">
+                                 <br>
+                                <label for="checkIn">Address<small>*</small></label>
+                                {{ reviewform.address }}
+                            </div>
+
+                            <div class="col-lg-6 col-sm-12">
+                                <br>
+                                <label for="checkIn">Email<small>*</small></label>
+                                {{ reviewform.email }}
+                            </div>
+
+
+                            <div class="col-lg-6 col-sm-12">
+
+                                <br>
+                                <label>Image (optional)<small>*</small></label>
+                                {{reviewform.image}}
+                            </div>
+                             <div class="col-lg-12 col-sm-12">
+
+                                <br>
+                                <label> Your Message<small>*</small></label>
+                                {{reviewform.quote}}
+                            </div>
+
+
+{#                            <div class="col-lg-12 col-sm-12"><br>#}
+{#                                <label  for="checkOut">Anti spam Quiz!</label >#}
+{##}
+{#                                {{ reviewform.captcha}} {% for field in form %}#}
+{#                                                    {% if field.errors %}#}
+{#                                                  {{ field.errors }}#}
+{#                                              {% else %}#}
+{#                                              {% endif %}#}
+{#                                                {% endfor %}#}
+{##}
+{#                            </div>#}
+
+
+
+
+                             <div class="col-12 text-center " data-wow-delay="100ms">
+                                    <button id="submitbutton" type="submit" class="btn roberto-btn mt-15">Submit</button>
+                                </div>
+                        </div>
+                    </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>
+
+        <!-- Modal footer -->
+{#        <div class="modal-footer">#}
+{#          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>#}
+{#        </div>#}
+
+      </div>
+    </div>
+  </div>
+
+
+
+</div>
+
+
+
+    </div>
+        <h5 class="section-title h1">Happy Customers</h5>
+        <div class="row">
+            <!-- Team member -->
+            {% for review in reviews %}
+
+
+
+            <div class="col-xs-12 col-sm-6 col-md-4">
+                <div class="image-flip" >
+                    <div class="mainflip flip-0">
+                        <div class="frontside">
+                            <div  class="card">
+                                <div class="card-body text-center">
+                                    <p><img class=" img-fluid" src=" {% if  review.image %}
+
+                                     {{ review.image.url}} {% else %} /media/organization/logo.jpg {% endif %} " alt="card image"></p>
+                                    <h4 class="card-title">{{ review.name }}</h4>
+                                    <p class="card-text">{{ review.quote|truncatechars_html:70}}</p>
+                                    <a href="https://www.fiverr.com/share/qb8D02" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="backside">
+                            <div class="card">
+                                <div  class="card-body text-center mt-4">
+                                    <h4 class="card-title">{{ review.name }}</h4>
+                                    <p class="card-text">{{ review.quote}}</p>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+              {% endfor %}
+            <!-- ./Team member -->
+            <!-- Team member -->
+
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+
+
+</div>
+
+
+
+
+  <div class="offset-lg-4 offset-2 offset-md-4">
+   <nav class="m-2 " aria-label="Page  navigation example">
+      {% if is_paginated %}
+      <ul class="pagination">
+        {% if page_obj.has_previous %}
+        <li class="page-item">
+          <a class="page-link" href="?page={{page_obj.previous_page_number}}">Previous</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+          <a class="page-link" href="#"></a>
+        </li>
+        {% endif %} {% for i in paginator.page_range %} {% if page_obj.number == i %}
+        <li class="page-item active"><a class="page-link active">{{ i }}</a></li>
+        {% else %}
+        <li class="page-item">
+          <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+        </li>
+        {% endif %} {% endfor %} {% if page_obj.has_next %}
+        <li class="page-item">
+          <a href="?page={{page_obj.next_page_number}}" class="page-link">Next</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+          <a class="page-link"></a>
+        </li>
+        {% endif %}
+      </ul>
+      {% endif %}
+    </nav>
+        </div>
+
+    <!-- Blog Area End -->
+
+    <!-- Call To Action Area Start -->
+    <section class="roberto-cta-area ">
+        <div class="container">
+            <div class="cta-content bg-img bg-overlay jarallax" style=" background-image: url({{ org.profile_image.url}});">
+                <div class="row align-items-center">
+                    <div class="col-12 col-md-7">
+                        <div class="cta-text mb-50">
+                            <h2>Contact us now!</h2>
+                            <h6>Contact {{org.contact_no}} to book directly or for advice</h6>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-5 text-right">
+                        <a href="#" class="btn roberto-btn mb-50">Contact Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Call To Action Area End -->
+
+
+
+{% endblock %}
+
+
+
+{% block js %}
+     <script type="text/javascript">
+
+   toastr.options = {
+  "closeButton": false,
+  "debug": false,
+  "newestOnTop": false,
+  "progressBar": true,
+  "positionClass": "toast-top-right",
+  "preventDuplicates": false,
+  "onclick": null,
+  "showDuration": "300",
+  "hideDuration": "1000",
+  "timeOut": "5000",
+  "extendedTimeOut": "1000",
+  "showEasing": "swing",
+  "hideEasing": "linear",
+  "showMethod": "fadeIn",
+  "hideMethod": "fadeOut"
+}
+
+   $("#review_form").submit(function(e){
+     // prevent from normal form behaviour
+      e.preventDefault();
+      $('#submitbutton').attr("disabled", true);
+      $this = $(this);
+      $.ajax({
+         type:"POST",
+         url: $this.attr('action'),
+         data: $this.serialize(),
+         success : function(data){
+          console.log(data)
+            if (data.success){
+              toastr["success"](data.success)
+              $this.trigger("reset");
+            }
+            else {
+              toastr["success"]("Thank you for your review!!")
+              $this.trigger("reset");
+           }
+         },
+         complete: function() {
+          $('#submitbutton').attr("disabled", false);
+        }
+      });
+   });
+</script>
+
+
+{% endblock %}
+                                           

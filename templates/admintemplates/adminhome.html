@@ -1,0 +1,33 @@
+{% extends 'admintemplates/adminbase.html' %}
+{% block content %}
+<h1>Success. Logged In</h1>
+
+<a href="{% url 'adventureapp:adminlogout'  %}"><button>
+logout
+ </button></a>
+
+<form action = "" method = "post">
+    {% csrf_token %}
+    {{form.as_p }}
+    <input type="submit" value="Submit">
+</form>
+
+    {% block js %}
+
+          <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+    <script>
+
+
+window.onload = function () {
+    document.getElementById('modal').click()
+}
+
+    </script>
+
+
+    {% endblock %}
+
+
+
+{% endblock %}

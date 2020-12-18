@@ -1,0 +1,148 @@
+{% extends 'admintemplates/adminbase.html' %}
+{% load static %}
+
+{% block css %}
+
+
+    <style>
+    .popover{
+    max-width: 100%; /* Max Width of the popover (depending on the container!) */
+
+}
+
+    </style>
+
+
+
+
+
+{% endblock %}
+{% block subscribersactive %}active{% endblock %}
+
+
+{% block content %}
+
+
+     <div class="header ">
+                        <h1 class="page-header">
+                            Activities
+                        </h1>
+						<ol class="breadcrumb">
+					  <li><a href="#">Home</a></li>
+					  <li><a href="#">Tables</a></li>
+					  <li class="active">Data</li>
+					</ol>
+
+		</div>
+
+
+     <div id="page-inner">
+    <div class="container-fluid">
+    <a href="{% url 'adventureapp:adminactivityadd' %}" class="pull-right"><i class="fa fa-plus-circle " style="font-size: 60px" aria-hidden="true"></i></a>
+
+
+            <table id="example" class="display nowrap" style="width:100%">
+                            <thead>
+                                    <tr>
+                                        <th>SN.</th>
+                                            <th>Title</th>
+                                            <th>Image</th>
+                                            <th>Description</th>
+
+                                            <th>Action</th>
+                                    </tr>
+                            </thead>
+                             <tbody>
+                                   {% for activity in activities %}
+
+
+                                        <tr>
+                                        <td>{{ forloop.counter }}</td>
+
+
+
+                                       <td>{{ activity.title}}</td>
+                                       <td>{% if activity.image %}
+
+                                         <img style="height: 40px; width: 60px;" src="{{ activity.image.url }}" alt="">
+
+
+                                     {% endif %}
+                                       </td>
+                                        <div>
+                                        <td> <a tabindex="0" class="btn btn-sm btn-danger" data-container="body" data-placement="top" role="button" data-toggle="popover" data-trigger="focus" title="Dismissible popover" data-content="{{ activity.description}}">View Description</a>
+
+                                        </td>
+                                 </div>
+
+
+
+
+
+                             <td>
+                            <a type="button" class="btn btn-sm btn-warning" href="{% url 'adventureapp:adminactivityupdate' activity.id %}">Update</a>
+                                        <a onclick="return confirm('Are you sure you want to delete?');" id="delete-button" type="button" class=" demo btn btn-sm btn-danger"  href="{% url 'adventureapp:adminactivitydelete' activity.id %}">Delete</a>
+                                     </td>
+
+                                   </tr>
+                                   {% endfor %}
+
+                                    </tbody>
+
+                                </table>
+
+     </div>
+    </div>
+
+
+
+
+
+
+{% endblock %}
+
+  {% block js %}
+
+
+<script>
+
+$(function () {
+  $('[data-toggle="popover"]').popover()
+})
+
+
+
+{#    $('.demo').confirmation({#}
+{#         placement       :'top',#}
+{#        title           : 'Are you sure?',#}
+{#      btnOkClass      : 'btn btn-sm btn-danger',#}
+{#      btnOkLabel      : 'Delete',#}
+{#      btnOkIcon       : 'glyphicon glyphicon-ok',#}
+{#      btnCancelClass  : 'btn btn-sm btn-default',#}
+{#      btnCancelLabel  : 'Cancel',#}
+{#      btnCancelIcon   : 'glyphicon glyphicon-remove',#}
+{##}
+{#});#}
+
+
+
+
+
+   $(document).ready(function() {
+    var table = $('#example').DataTable( {
+
+        animation: true,
+        "autoWidth": false,
+        rowReorder: {
+            selector: 'td:nth-child(2)'
+        },
+        responsive: true
+    } );
+} );
+
+
+
+     </script>
+
+
+     {% endblock %}

@@ -1,0 +1,129 @@
+{% extends 'admintemplates/adminbase.html' %}
+{% block css %}
+
+
+    <style>
+    @media (max-width:1281px),(min-width:801px) {
+
+          .thumbnail > img {
+                height: 300px;
+                width: 500px;
+            }
+
+    }
+     @media only screen and (max-device-width: 480px){
+
+
+        .thumbnail > img {
+                height: 100%;
+                width: 100%;
+            }
+    }
+    </style>
+
+{% endblock %}
+{% block title %} ImageAlbum Detail{% endblock %}
+
+
+
+
+{% block content %}
+
+
+
+		  <div class="header">
+                        <h1 class="page-header">
+                        {{ albumdetail.title }}  (details)
+                        </h1>
+						<ol class="breadcrumb">
+					  <li><a href="#">Home</a></li>
+					  <li><a href="#">Empty</a></li>
+					  <li class="active">Data</li>
+					</ol>
+
+		</div>
+            <div id="page-inner">
+
+			  <div class="row">
+
+                    <div class="col-md-12">
+                    <div class="card">
+                    <div class="card-content">
+
+                           <div class="card-action">
+                                <h3 class="text-center">Thumbnail:</h3> <br>
+
+      <div class="thumbnail galleryimage">
+
+
+          <img src="{{albumdetail.image.url}}" alt="Lights" >
+
+
+
+    </div>
+
+
+
+                        </div>
+                        <div class="card-action">
+                            Title :
+                          Album  "{{ albumdetail.title }}"
+                        </div>
+                        <div class="card-action">
+                           <span>Description:</span>  {{ albumdetail.description }}
+                        </div>
+                         </div>
+
+
+
+						 </div>
+
+
+
+
+				</div>
+
+
+             <!-- /. PAGE INNER  -->
+            </div>
+
+  <div>
+  <h2 class="text-center">Image Gallery</h2>
+      <br>
+
+  <div class="row pt-5">
+      {% for imagemedia in imagemedias %}
+
+
+
+
+
+    <div class="col-md-4">
+      <div class="thumbnail gimage">
+        <a href="{{imagemedia.image.url}}" target="_blank">
+          <img src="{{imagemedia.image.url}}" style=" height: 200px; width: 300px;" alt="Lights" >
+        </a>
+
+           <td><a onclick="return confirm('Are you sure you want to delete this item?');" class="demo btn btn-sm btn-danger" href="{% url 'adventureapp:adminimagemediadelete' imagemedia.id %}">Delete </a></td>
+           <td><a class="btn btn-sm btn-success" href="{% url 'adventureapp:adminimagealbumupdate' albumdetail.id %}">Update </a></td>
+
+      </div>
+    </div>
+       {% endfor %}
+
+         </div>
+
+            </div>
+            </div>
+
+
+
+
+{% endblock %}
+{% block js %}
+{#    <script>$('.demo').confirmation({#}
+{#         placement    :'top',#}
+{##}
+{##}
+{#});</script>#}
+{% endblock %}

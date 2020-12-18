@@ -1,0 +1,110 @@
+{% extends 'admintemplates/adminbase.html' %}
+
+{% block content %}
+
+    <body>
+
+		  <div class="header">
+                        <h1 class="page-header ">
+
+                             Update your profile
+
+                        </h1>
+						<ol class="breadcrumb">
+					  <li><a href="#">Home</a></li>
+					  <li><a href="#">Forms</a></li>
+					  <li class="active">Data</li>
+					</ol>
+
+		</div>
+
+            <div id="page-inner">
+
+              <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-action">
+                            Update Profile
+                            <hr>
+
+                        </div>
+                        <div class="card-content">
+                         	<form method="post" action="" class="col s12" enctype="multipart/form-data">
+                                {% csrf_token %}
+
+                                <div class="row">
+                                    <a href="{% url 'adventureapp:adminpasswordupdate' %}"> <button class="btn btn-sm btn-success "> Change password </button></a>
+                                </div>
+								  <div class="row">
+									<div class="input-field col s6">
+
+                                        <strong> Name: </strong>
+									  {{ form.name }}
+									</div>
+									<div class="input-field col s6">
+
+									   <strong>Email: </strong>
+									  {{ form.email }}
+									</div>
+								  </div>
+
+                                <div class="row">
+									<div class="input-field col s6">
+
+                                        <strong> Phone: </strong>
+									  {{ form.phone }}
+									</div>
+
+								  </div>
+
+                                 <div class="row">
+									<div class="input-field col s6">
+
+                                        <strong> Role: </strong>
+									  {{ form.role }}
+									</div>
+
+								  </div>
+
+                                <div class="row">
+									<div class="input-field col s6">
+
+                                        <strong> Image: </strong>
+									  {{ form.image }}
+									</div>
+
+								  </div>
+
+                                <div class="row">
+									<div class="input-field col s12">
+
+                                        <strong> About: </strong>
+									  {{ form.about }}
+									</div>
+
+								  </div>
+
+                                    <input class="btn center-block btn-success" type="submit" value="Submit">
+                                   </form>
+
+
+
+
+
+
+
+
+
+							<div class="clearBoth"></div>
+							</div>
+							</div>
+							</div>
+
+                        <!-- /.panel-body -->
+                    </div>
+                <!-- /.col-lg-12 -->
+
+
+            </div>
+
+{% endblock %}

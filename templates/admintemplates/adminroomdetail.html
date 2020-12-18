@@ -1,0 +1,85 @@
+{% extends 'admintemplates/adminbase.html' %}
+{% block title %} Room Detail{% endblock %}
+{% block content %}
+
+
+
+		  <div class="header">
+                        <h1 class="page-header">
+                        {{ roomdetail.title }} room (details)
+                        </h1>
+						<ol class="breadcrumb">
+					  <li><a href="#">Home</a></li>
+					  <li><a href="#">Empty</a></li>
+					  <li class="active">Data</li>
+					</ol>
+
+		</div>
+            <div id="page-inner">
+
+			  <div class="row">
+
+                    <div class="col-md-12">
+                    <div class="card">
+                    <div class="card-content">
+
+                           <div class="clearBoth"><br/></div>
+                             <img src="{{roomdetail.image.url}}" class="img-fluid my-3"
+										 style="width:90%; max-height: 300px; object-fit: contain;">
+
+
+						 </div>
+                        <div class="card-action">
+                            Title :
+                            {{ roomdetail.title }} room
+                        </div>
+                        <div class="card-action">
+                           <span>Room Type :</span>  {{ roomdetail.type }}
+                        </div>
+                        <div class="card-action">
+                           <span>Max Person :</span>  {{ roomdetail.max_person }}
+                        </div>
+                        <div class="card-action">
+                           <span>Room Type :</span>  {{ roomdetail.type }}
+                        </div>
+                        <div class="card-action">
+                            {% if roomdetail.is_reserved %}
+                                <span>Room status : Reserved </span>
+                              {% else %}
+                                <span>Room status : Available </span>
+                            {% endif %}
+
+                        </div>
+                        <div class="card-action">
+                           <span>Ameneties :</span>
+
+                {{ roomdetail.amenities }}
+
+
+                        </div>
+                    <div class="card-action text-center">
+                        <p>{{ roomdetail.description|safe}}</p>
+                    </div>
+
+						 </div>
+
+
+				</div>
+             <!-- /. PAGE INNER  -->
+            </div>
+
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

@@ -1,0 +1,1413 @@
+{% extends 'clienttemplates/clientbase.html' %}
+{% load static %}
+{% block css %}
+{#<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" />#}
+{#  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" />#}
+<link rel="stylesheet" href="{% static 'clientstatic/hometestimonials/style.css' %}">
+<link rel="stylesheet" href="{% static 'clientstatic/gallery+lightbox/css/ekko-lightbox.css' %}">
+<link rel="stylesheet" href="{% static 'clientstatic/ytpopup/video.popup.css'  %}">
+
+    <style>
+    .menu,
+.nav-icon span {
+	transition: all .3s ease-in-out
+}
+
+.menu .nav-menu li a,
+.nav-menu li a {
+	line-height: 56px
+}
+
+*,
+::after,
+::before {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box
+}
+
+.effectTab-header .caption,
+.effectTab-header .title {
+	font-weight: 700;
+	padding-bottom: 20px;
+	position: relative;
+	display: inline-block;
+	color: #555;
+	margin: 0 0 20px;
+	text-align: center;
+	text-transform: uppercase
+}
+
+.effectTab-header .title {
+	font-size: 36px;
+	font-family: Oswald, sans-serif
+}
+
+.effectTab-header .caption {
+	font-size: 30px;
+	font-family: 'Open Sans', sans-serif
+}
+
+.column-1,
+.column-10,
+.column-11,
+.column-12,
+.column-2,
+.column-3,
+.column-4,
+.column-5,
+.column-7,
+.column-8,
+.column-9 {
+	float: left;
+	padding: 15px
+}
+
+.effectTab-header .title::after,
+.effectTab-header .title::before {
+	position: absolute;
+	background: linear-gradient(to right, #ed6ea0 0, #ec8c69 100%);
+	content: ""
+}
+
+.effectTab-header .title::before {
+	left: 15%;
+	width: 156%;
+	height: 3px;
+	margin-left: -42%;
+
+	bottom: -1.5px
+}
+
+.effectTab-header .title::after {
+	left: 50%;
+	width: 25px;
+	height: 25px;
+	bottom: -26px;
+	margin: 0 0 0 -10px;
+	-webkit-clip-path: polygon(75% 0, 75% 69%, 41% 93%, 0 68%, 0 0);
+	clip-path: polygon(75% 0, 75% 69%, 41% 93%, 0 68%, 0 0)
+}
+
+body {
+	background-color: #F5F5F5;
+}
+
+.column-1 {
+	width: 8.333333333333333%
+}
+
+.column-2 {
+	width: 16.66666666666667%
+}
+
+.column-3 {
+	width: 25%
+}
+
+.column-4 {
+	width: 33.33333333333333%
+}
+
+.column-5 {
+	width: 41.66666666666667%
+}
+
+.column-6 {
+	width: 50%;
+	float: left;
+	padding: 15px
+}
+
+.column-7 {
+	width: 58.33333333333333%
+}
+
+.column-8 {
+	width: 66.66666666666667%
+}
+
+.column-9 {
+	width: 75%
+}
+
+.column-10 {
+	width: 83.33333333333333%
+}
+
+.column-11 {
+	width: 91.66666666666667%
+}
+
+.column-12,
+.wrapper-full {
+	width: 100%
+}
+
+.nav-icon,
+.navigation {
+	float: right
+}
+
+.custom-row::after {
+	content: "";
+	display: table;
+	clear: both
+}
+
+.wrapper {
+	max-width: 1140px;
+	margin: 0 auto;
+	position: relative
+}
+
+.header {
+	background-color: #485666;
+	padding: 8px 0;
+	position: static;
+	z-index: 2000
+}
+
+.header h1 {
+	color: #fff;
+	font-family: Poppins;
+	font-weight: 400;
+	font-size: 2.2rem;
+	padding-left: 40px
+}
+
+.rotate {
+	position: absolute;
+	transform: rotate(-20deg);
+	left: 0;
+	font-size: 2.8rem;
+	top: 5px
+}
+
+.ex_padd {
+	padding-top: 170px!important
+}
+
+.nav-icon-container {
+	display: block
+}
+
+.nav-icon {
+	width: 50px;
+	height: 50px;
+	border: 2px solid #fff;
+	border-radius: 50%;
+	position: relative;
+	cursor: pointer;
+	z-index: 100
+}
+
+.nav-icon span {
+	width: 60%;
+	height: 2px;
+	background-color: #fff;
+	position: absolute;
+	left: 50%;
+	transform: translate(-50%, -50%)
+}
+
+.nav-icon-1 {
+	top: 30%
+}
+
+.nav-icon-2 {
+	top: 50%
+}
+
+.nav-icon-3 {
+	top: 70%
+}
+
+.nav-icon.active .nav-icon-1 {
+	top: 50%;
+	transform: rotate(45deg);
+	left: 22%
+}
+
+.nav-icon.active .nav-icon-3 {
+	top: 50%;
+	transform: rotate(-45deg);
+	left: 22%
+}
+
+.nav-icon.active .nav-icon-2 {
+	width: 0
+}
+
+.nav-menu {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around
+}
+
+.nav-menu li {
+	list-style: none;
+	position: relative
+}
+
+.nav-menu li a {
+	color: #fff;
+	text-decoration: none;
+	display: inline-block;
+	padding: 0 20px
+}
+
+.nav-menu li:after,
+.nav-menu li:before {
+	content: "";
+	position: absolute;
+	height: 3px;
+	background-color: rgba(255, 255, 255, .2);
+	bottom: 0;
+	width: 0;
+	transition: all .3s ease-in-out
+}
+
+.nav-menu li:before {
+	left: 0
+}
+
+.nav-menu li:after {
+	right: 0
+}
+
+.nav-menu li:hover:after,
+.nav-menu li:hover:before {
+	width: 50%
+}
+
+.nav-menu li.active:after,
+.nav-menu li.active:before {
+	background-color: rgba(0, 128, 128, 1)
+}
+
+.menu {
+	width: 200px;
+	background-color: #0B466C;
+	text-align: center;
+	padding: 40px;
+	position: fixed;
+	top: 96px;
+	right: -200px;
+	overflow: scroll;
+	height: calc(100% - 96px);
+	z-index: 1000
+}
+
+.menu.active {
+	right: 0
+}
+
+.menu .nav-menu {
+	flex-direction: column;
+	width: 150px
+}
+
+.menu .nav-menu li {
+	margin: 10px 0;
+	width: 80%
+}
+
+.box-tab {
+	margin: 10px 0
+}
+
+.effect {
+	margin: auto;
+	box-shadow: 0 0 15px 5px rgba(0, 0, 0, .07);
+	background-color: #fff;
+	border: 5px solid #f5f5f5
+}
+
+.tab-container {
+	padding: 50px 0
+}
+
+.tab-head {
+	text-align: center;
+	padding-bottom: 10px;
+	margin-bottom: 20px;
+	margin-left: auto;
+	margin-right: auto
+}
+
+.tab .effect {
+	position: relative;
+	overflow: hidden;
+	max-height: 240px;
+	max-width: 350px;
+	background: #3085a3;
+	text-align: center;
+	cursor: pointer
+}
+
+.grid-width3,
+.grid-width6 {
+	max-height: 270px!important;
+	max-width: 530px!important
+}
+
+.grid-width8 {
+	max-width: 700px!important
+}
+
+.tab .effect img {
+	position: relative;
+	display: block;
+	min-height: 100%;
+	opacity: .8
+}
+
+.tab .effect .tab-text {
+	padding: 2em;
+	color: #fff;
+	text-transform: uppercase;
+	font-size: 1.25rem;
+	-webkit-backface-visibility: hidden;
+	backface-visibility: hidden;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%
+}
+
+.tab-text h2 {
+	color: #fff;
+	margin: 0;
+	font-size: 1.5rem
+}
+
+.tab-text p {
+	color: #fff;
+	margin: 0;
+	font-size: 1rem
+}
+
+.hide {
+	display: none
+}
+
+@media (max-width:575px) {
+	.column-xs-1,
+	.column-xs-10,
+	.column-xs-11,
+	.column-xs-12,
+	.column-xs-2,
+	.column-xs-3,
+	.column-xs-4,
+	.column-xs-5,
+	.column-xs-7,
+	.column-xs-8,
+	.column-xs-9 {
+		float: left;
+		padding: 15px
+	}
+	.column-xs-1 {
+		width: 8.333333333333333%
+	}
+	.column-xs-2 {
+		width: 16.66666666666667%
+	}
+	.column-xs-3 {
+		width: 25%
+	}
+	.column-xs-4 {
+		width: 33.33333333333333%
+	}
+	.column-xs-5 {
+		width: 41.66666666666667%
+	}
+	.column-xs-6 {
+		width: 50%;
+		float: left;
+		padding: 15px
+	}
+	.column-xs-7 {
+		width: 58.33333333333333%
+	}
+	.column-xs-8 {
+		width: 66.66666666666667%
+	}
+	.column-xs-9 {
+		width: 75%
+	}
+	.column-xs-10 {
+		width: 83.33333333333333%
+	}
+	.column-xs-11 {
+		width: 91.66666666666667%
+	}
+	.column-xs-12 {
+		width: 100%
+	}
+	.hide-xs {
+		display: none
+	}
+	.effectTab-header .title::before {
+		width: 125%;
+		left: 15%
+	}
+	.tab-container {
+		padding-top: 25px;
+		padding-bottom: 25px
+	}
+}
+
+@media (min-width:576px) and (max-width:767px) {
+	.column-sm-1,
+	.column-sm-10,
+	.column-sm-11,
+	.column-sm-12,
+	.column-sm-2,
+	.column-sm-3,
+	.column-sm-4,
+	.column-sm-5,
+	.column-sm-7,
+	.column-sm-8,
+	.column-sm-9 {
+		float: left;
+		padding: 15px
+	}
+	.column-sm-1 {
+		width: 8.333333333333333%
+	}
+	.column-sm-2 {
+		width: 16.66666666666667%
+	}
+	.column-sm-3 {
+		width: 25%
+	}
+	.column-sm-4 {
+		width: 33.33333333333333%
+	}
+	.column-sm-5 {
+		width: 41.66666666666667%
+	}
+	.column-sm-6 {
+		width: 50%;
+		float: left;
+		padding: 15px
+	}
+	.column-sm-7 {
+		width: 58.33333333333333%
+	}
+	.column-sm-8 {
+		width: 66.66666666666667%
+	}
+	.column-sm-9 {
+		width: 75%
+	}
+	.column-sm-10 {
+		width: 83.33333333333333%
+	}
+	.column-sm-11 {
+		width: 91.66666666666667%
+	}
+	.column-sm-12 {
+		width: 100%
+	}
+	.hide-sm {
+		display: none
+	}
+	.visible-sm {
+		display: block
+	}
+	.tab-container {
+		padding-top: 25px;
+		padding-bottom: 25px
+	}
+}
+
+@media (max-width:1000px) {
+	.header h1 {
+		padding-left: 70px
+	}
+	.rotate {
+		left: 30px
+	}
+	@media (min-width:768px) and (max-width:991px) {
+		.column-md-1,
+		.column-md-10,
+		.column-md-11,
+		.column-md-12,
+		.column-md-2,
+		.column-md-3,
+		.column-md-4,
+		.column-md-5,
+		.column-md-7,
+		.column-md-8,
+		.column-md-9 {
+			float: left;
+			padding: 15px
+		}
+		.column-md-1 {
+			width: 8.333333333333333%
+		}
+		.column-md-2 {
+			width: 16.66666666666667%
+		}
+		.column-md-3 {
+			width: 25%
+		}
+		.column-md-4 {
+			width: 33.33333333333333%
+		}
+		.column-md-5 {
+			width: 41.66666666666667%
+		}
+		.column-md-6 {
+			width: 50%;
+			float: left;
+			padding: 15px
+		}
+		.column-md-7 {
+			width: 58.33333333333333%
+		}
+		.column-md-8 {
+			width: 66.66666666666667%
+		}
+		.column-md-9 {
+			width: 75%
+		}
+		.column-md-10 {
+			width: 83.33333333333333%
+		}
+		.column-md-11 {
+			width: 91.66666666666667%
+		}
+		.column-md-12 {
+			width: 100%
+		}
+		.hide-md {
+			display: none
+		}
+		.visible-md {
+			display: block
+		}
+	}
+}
+
+
+.effect.effect-ten {
+	background-color: #162633
+}
+
+.effect.effect-ten img {
+	transition: all .35s;
+	transform: translate3d(-20px, 0, 0) scale(1.1, 1.1);
+	-webkit-transition: all .35s;
+	-webkit-transform: translate3d(-20px, 0, 0) scale(1.1, 1.1)
+}
+
+.effect.effect-ten:hover img {
+	opacity: .85;
+	transform: translate3d(0, 0, 0) scale(1, 1);
+	-webkit-transform: translate3d(0, 0, 0) scale(1, 1)
+}
+
+.effect.effect-ten h2 {
+	transform: translate3d(0, 5px, 0);
+	-webkit-transform: translate3d(0, 5px, 0);
+	transition: all .35s;
+	-webkit-transition: all .35s;
+	font-family: Oswald;
+	z-index: 2;
+	position: relative;
+	padding-top: 10%
+}
+
+.effect.effect-ten:hover h2 {
+	transform: translate3d(0, 0, 0);
+	-webkit-transform: translate3d(0, 0, 0)
+}
+
+.effect.effect-ten p {
+	font-size: .8rem;
+	line-height: 1.1;
+	padding-top: 5px;
+	transform: translate3d(0, 10px, 0);
+	transition: all .35s;
+	-webkit-transform: translate3d(0, 10px, 0);
+	-webkit-transition: all .35s;
+	font-family: Poppins
+}
+
+.effect.effect-ten:hover p {
+	transform: translate3d(0, 0, 0);
+	-webkit-transform: translate3d(0, 0, 0)
+}
+
+.effect.effect-ten .tab-text {
+	transform-style: preserve-3d;
+	-webkit-transform-style: preserve-3d;
+	perspective: 300px
+}
+
+.effect.effect-ten .tab-text:after {
+	content: "";
+	width: 180%;
+	height: 180%;
+	background: linear-gradient(-45deg, rgba(0, 0, 0, 0) 49%, rgba(0, 0, 0, .45) 50%);
+	position: absolute;
+	top: 0;
+	left: 0;
+	-webkit-transition: all .4s linear;
+	transition: all .4s linear
+}
+
+.effect.effect-ten .tab-text:before {
+	content: "";
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	width: 60px;
+	height: 60px;
+	background: linear-gradient(-45deg, rgba(0, 0, 0, 0) 49%, rgba(132, 132, 132, .45) 50%, rgba(255, 255, 255, .65) 65%);
+	transform: rotate3d(-1, 1, 0, 20deg);
+	transform-origin: 50% 50%;
+	transition: width .2s linear .2s, height .2s linear .2s, bottom .2s linear 0s, right .2s linear 0s;
+	-webkit-transform: rotate3d(-1, 1, 0, 20deg);
+	-webkit-transform-origin: 50% 50%;
+	-webkit-transition: width .2s linear .2s, height .2s linear .2s, bottom .2s linear 0s, right .2s linear 0s
+}
+
+.effect.effect-ten:hover .tab-text:after {
+	top: -80%;
+	left: -80%;
+	background: linear-gradient(-45deg, rgba(0, 0, 0, 0) 49%, rgba(0, 0, 0, .45) 60%)
+}
+
+.effect.effect-ten:hover .tab-text:before {
+	width: 100%;
+	height: 100%;
+	bottom: 50%;
+	right: 50%;
+	-webkit-transition: width .2s linear 0s, height .2s linear 0s, bottom .2s linear .2s, right .2s linear .2s;
+	transition: width .2s linear 0s, height .2s linear 0s, bottom .2s linear .2s, right .2s linear .2s
+}
+
+.effect.effect-ten .icons-block {
+	z-index: 1000;
+	position: absolute;
+	top: 10px;
+	width: 100%;
+	left: 0;
+	text-align: center;
+	padding-left: 15px;
+	padding-top: 10px
+}
+
+.effect.effect-ten .icons-block .social-icon-1 {
+	transition: all .5s ease-in-out;
+	opacity: 0
+}
+
+.effect.effect-ten:hover .social-icon-1 {
+	opacity: 1;
+	transition-delay: .3s;
+	transition-duration: .5s
+}
+
+
+@media (max-width:575px) {
+	.effect.effect-two p.description {
+		bottom: 5.8em
+	}
+}
+
+@media (min-width:576px) and (max-width:767px) {
+	.tab .effect .tab-text h2 {
+		font-size: 1.3rem!important;
+		font-family: Oswald
+	}
+	.effect.effect-two p.description {
+		bottom: 5.8em
+	}
+}
+
+@media (min-width:768px) and (max-width:991px) {
+	.effect h2 {
+		font-size: 1.3rem!important
+	}
+}
+
+
+
+    {#testimonials#}
+
+    .shadow-effect {
+		    background: #fff;
+            height: 360px;
+            width: 330px;
+		    padding: 20px;
+            margin-left: -27px;
+		    border-radius: 4px;
+		    text-align: center;
+	        border:1px solid #ECECEC;
+		    box-shadow: 0 19px 38px rgba(0,0,0,0.10), 0 15px 12px rgba(0,0,0,0.02);
+		}
+		#customers-testimonials .shadow-effect p {
+		    font-family: inherit;
+		    font-size: 17px;
+		    line-height: 1.5;
+		    margin: 0 0 17px 0;
+		    font-weight: 300;
+		}
+		.testimonial-name {
+		    margin: -27px auto 0;
+		    display: table;
+		    width: auto;
+		    background: #7C0000;
+		    padding: 9px 35px;
+		    border-radius: 12px;
+		    text-align: center;
+		    color: #fff;
+		    box-shadow: 0 9px 18px rgba(0,0,0,0.12), 0 5px 7px rgba(0,0,0,0.05);
+		}
+		#customers-testimonials .item {
+		    text-align: center;
+		    padding: 50px;
+				margin-bottom:80px;
+		    opacity: .5;
+		    -webkit-transform: scale3d(0.8, 0.8, 1);
+		    transform: scale3d(0.8, 0.8, 1);
+		    -webkit-transition: all 0.3s ease-in-out;
+		    -moz-transition: all 0.3s ease-in-out;
+		    transition: all 0.3s ease-in-out;
+		}
+		#customers-testimonials .owl-item.active.center .item {
+		    opacity: 1;
+		    -webkit-transform: scale3d(1.0, 1.0, 1);
+		    transform: scale3d(1.0, 1.0, 1);
+		}
+		.owl-carousel .owl-item img {
+		    transform-style: preserve-3d;
+		    max-width: 90px;
+		    height: 90px;
+    		margin: -55px auto 0;
+
+		}
+		#customers-testimonials.owl-carousel .owl-dots .owl-dot.active span,
+#customers-testimonials.owl-carousel .owl-dots .owl-dot:hover span {
+		    background: #3190E7;
+		    transform: translate3d(0px, -50%, 0px) scale(0.7);
+		}
+#customers-testimonials.owl-carousel .owl-dots{
+	display: inline-block;
+	width: 100%;
+	text-align: center;
+}
+#customers-testimonials.owl-carousel .owl-dots .owl-dot{
+	display: inline-block;
+}
+		#customers-testimonials.owl-carousel .owl-dots .owl-dot span {
+		    background: #3190E7;
+		    display: inline-block;
+		    height: 20px;
+		    margin: 0 2px 5px;
+		    transform: translate3d(0px, -50%, 0px) scale(0.3);
+		    transform-origin: 50% 50% 0;
+		    transition: all 250ms ease-out 0s;
+		    width: 20px;
+		}
+
+
+
+
+
+
+    @media (min-width:481px),(max-width:800px){
+
+        .welcome-slides  .bg-img{
+             height: 750px;
+             padding-bottom:  150px;
+         }
+     .images img {
+            height: 180px; width: 400px;
+        }
+ .single-service--area{
+        height: 170px;
+        width: 200px;
+    }
+
+
+     }
+
+
+   @media only screen and (max-device-width: 480px){
+          .roberto-about-area{
+             padding-top: 200px;
+
+         }
+    .images img {
+            height: 200px; width: 400px;
+        }
+ .single-service--area{
+        height: 130px;
+        width: 200px;
+    }
+
+
+
+.effectTab-header .title::before {
+	left: 58.5%;
+	width: 83%;
+	height: 3px;
+	margin-left: -50%;
+
+	bottom: -1.5px
+}
+
+
+   }
+
+    </style>
+
+
+{% endblock %}
+
+
+{% block content %}
+
+
+
+    <!-- Welcome Area Start -->
+    <section class="welcome-area">
+        <div class="welcome-slides owl-carousel">
+            <!-- Single Welcome Slide -->
+            <div class="single-welcome-slide bg-img bg-overlay" style="background-image: url({{ org.profile_image.url}});" data-img-url="{{ org.profile_image.url}}">
+                <!-- Welcome Content -->
+                <div class="welcome-content h-100">
+                    <div class="container h-100">
+                        <div class="row h-100 align-items-center">
+                            <!-- Welcome Text -->
+                            <div class="col-12">
+                                <div class="welcome-text text-center">
+                                    <h6 data-animation="fadeInLeft" data-delay="200ms">Hotel &amp; Resort</h6>
+                                    <h2 data-animation="fadeInLeft" data-delay="500ms">Welcome To {{ org.name }}</h2>
+                                    <a href="#" class="btn roberto-btn btn" data-animation="fadeInLeft" data-delay="800ms">Discover Now</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Single Welcome Slide -->
+            <div class="single-welcome-slide bg-img bg-overlay" style="background-image: url({{ hotelpic.image.url }});" data-img-url="{{ hotelpic.image.url}}">
+                <!-- Welcome Content -->
+                <div class="welcome-content h-100">
+                    <div class="container h-100">
+                        <div class="row h-100 align-items-center">
+                            <!-- Welcome Text -->
+                            <div class="col-12 ">
+                                <div class="welcome-text text-center">
+                                    <h6 data-animation="fadeInUp" data-delay="200ms">Hotel &amp; Resort</h6>
+                                    <h2 data-animation="fadeInUp" data-delay="500ms">Welcome To {{ org.name }}</h2>
+                                    <a href="#" class="btn roberto-btn btn" data-animation="fadeInUp" data-delay="800ms">Discover Now</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Single Welcome Slide -->
+            <div class="single-welcome-slide bg-img bg-overlay" style="background-image: url({{ hotelpic1.image.url  }});" data-img-url="{{ hotelpic1.image.url}}">
+                <!-- Welcome Content -->
+                <div class="welcome-content h-100">
+                    <div class="container h-100">
+                        <div class="row h-100 align-items-center">
+                            <!-- Welcome Text -->
+                            <div class="col-12">
+                                <div class="welcome-text text-center">
+                                    <h6 data-animation="fadeInDown" data-delay="200ms">Hotel &amp; Resort</h6>
+                                    <h2 data-animation="fadeInDown" data-delay="500ms">Welcome To {{ org.name }}</h2>
+                                    <a href="#" class="btn roberto-btn btn" data-animation="fadeInDown" data-delay="800ms">Discover Now</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Welcome Area End -->
+
+    <!-- About Us Area Start -->
+    <section class="roberto-about-area section-padding-100-0">
+        <!-- Hotel Search Form Area -->
+        <div class="hotel-search-form-area">
+
+            <div class="container-fluid">
+
+                <div class="hotel-search-form">
+                    <h6 class="text-center ">Check room</h6> <br>
+                    <form action="{% url 'adventureapp:clientmaxperson' %}" method="post">
+                        <div class="row justify-content-between align-items-end">
+                            <div class="col-lg-3 col-md-3 ">
+                                {% csrf_token %}
+                                <label for="checkIn">Check In</label>
+                                {{clientmaxpersonform.check_in}}
+                            </div>
+                            <div class="col-lg-3 col-md-3">
+                                <label for="checkOut">Check Out</label>
+                                {{clientmaxpersonform.check_out}}
+                            </div>
+{#                            <div class="col-4 col-md-1">#}
+{#                                <label for="room">Room</label>#}
+{#                                <select name="room" id="room" class="form-control">#}
+{#                                    <option value="01">01</option>#}
+{#                                    <option value="02">02</option>#}
+{#                                    <option value="03">03</option>#}
+{#                                    <option value="04">04</option>#}
+{#                                    <option value="05">05</option>#}
+{#                                    <option value="06">06</option>#}
+{#                                </select>#}
+{#                            </div>#}
+                            <div class="col-lg-3 col-md-3">
+                                <label for="adults">Persons</label>
+
+                                {{ clientmaxpersonform.max_person }}
+{#                                <select name="adults" id="adults" class="form-control">#}
+{#                                    <option value="01">01</option>#}
+{#                                    <option value="02">02</option>#}
+{#                                    <option value="03">03</option>#}
+{#                                    <option value="04">04</option>#}
+{#                                    <option value="05">05</option>#}
+{#                                    <option value="06">06</option>#}
+{#                                </select>#}
+                            </div>
+{#                            <div class="col-4 col-md-2 col-lg-1">#}
+{#                                <label for="children">Children</label>#}
+{#                                <select name="children" id="children" class="form-control">#}
+{#                                    <option value="01">01</option>#}
+{#                                    <option value="02">02</option>#}
+{#                                    <option value="03">03</option>#}
+{#                                    <option value="04">04</option>#}
+{#                                    <option value="05">05</option>#}
+{#                                    <option value="06">06</option>#}
+{#                                </select>#}
+{#                            </div>#}
+
+                            <div class="col-md-3 col-lg-3" style="margin:auto;text-align:center; ">
+                                <button type="submit" class="form-control btn roberto-btn w-100">Check Availability</button>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="container mt-100">
+            <div class="row align-items-center">
+                <div class="col-12 col-lg-6">
+                    <!-- Section Heading -->
+                    <div class="section-heading wow fadeInUp" data-wow-delay="100ms">
+                        <h6>About Us</h6>
+                        <h2>Welcome to <br>{{ org.name}}</h2>
+                    </div>
+                    <div class="about-us-content mb-100">
+                        <h6 style="line-height: 2; letter-spacing: normal; text-align: justify; text-justify: auto" class="  text-dark  wow fadeInUp" data-wow-delay="300ms">{{ org.about_us}}</h6>
+{#                        <p class="wow fadeInUp" data-wow-delay="400ms">Manager: <span>Michen Taylor</span></p>#}
+{#                        <img src="img/core-img/signature.png" alt="" class="wow fadeInUp" data-wow-delay="500ms">#}
+                    </div>
+                </div>
+
+                <div class="col-12 col-lg-6">
+
+
+
+           <div class="container">
+          <div class="row mb-100 ">
+              {% for hotelpic in hotelpics|slice:'0:4' %}
+            <div class="col-md-6 images p-2 wow fadeInUp " data-wow-delay="200ms">
+
+
+            <a href="{{ hotelpic.image.url }}" data-toggle="lightbox"  data-gallery="gallery" >
+              <img  src="{{ hotelpic.image.url }}" class="img-fluid rounded">
+            </a>
+                  </div>
+         {% endfor %}
+          </div>
+        </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- About Us Area End -->
+
+    <!-- Facilities Area Start -->
+    <section>
+    <div class="roberto-service-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+
+
+
+
+                    <div class="service-content d-flex align-items-center justify-content-between">
+                        <!-- Single Service Area -->
+                          {% for facility in org.facilities.all %}
+                        <div class="single-service--area servicearea mb-100 mr-2 wow fadeInUp" data-wow-delay="100ms">
+                            <img src="{{ facility.image.url}}" alt="">
+                            <h5>{{ facility.title }}</h5>
+                        </div>
+                         {% endfor %}
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </section>
+    <!-- Service Area End -->
+
+
+
+
+    <!-- Our Room Area Start -->
+    <section class="roberto-rooms-area">
+        <div class="rooms-slides owl-carousel"  >
+            <!-- Single Room Slide -->
+            {% for room in rooms %}
+
+
+
+            <div class="single-room-slide d-flex align-items-center">
+                <!-- Thumbnail -->
+                <div class="room-thumbnail h-100 bg-img" style="background-image: url({{ room.image.url}});  "></div>
+
+                <!-- Content -->
+                <div class="room-content">
+                    <h2 >{{ room.type}}</h2>
+                    <h3 class="text-white" >Rs({{ room.price }})<span>/ Day</span></h3>
+                    <ul class="room-feature">
+                        <li><span><i class="fa fa-check"></i> Size</span> <span>: {{ room.size}}ft</span></li>
+                        <li><span><i class="fa fa-check"></i> Capacity</span> <span>: Max persion  {{room.max_person }}</span></li>
+                        <li><span><i class="fa fa-check"></i> Bed</span> <span>: {{ room.no_of_beds}}</span></li>
+                        <li><span><i class="fa fa-check"></i> Services</span> : {% for services in room.services.all %}
+
+
+                         {{ services }}, {% endfor %}</li>
+                    </ul>
+                    <a href="{% url 'adventureapp:clientroomdetail' room.id %} " class="btn roberto-btn mt-30" >More Details</a>
+                </div>
+            </div>
+
+              {% endfor %}
+
+
+        </div>
+    </section>
+    <!-- Our Room Area End -->
+
+
+        <!-- Events Area Start -->
+    <section class="roberto-blog-area section-padding-100-0">
+        <div class="container">
+            <div class="row">
+                <!-- Section Heading -->
+                <div class="col-12">
+                    <div class="section-heading text-center wow fadeInUp" data-wow-delay="100ms">
+                        <h6>News & Events</h6>
+                        <h2>Latest News &amp; Event</h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Single Post Area -->
+                {% for latestevent in latestevents %}
+
+
+
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="single-post-area mb-15 wow fadeInUp" data-wow-delay="200ms">
+                        <a href="#"  class="post-thumbnail"><img style="height: 260px; width: 100%; " src="{{ latestevent.image.url}}" alt=""></a>
+                        <!-- Post Meta -->
+                        <div class="post-meta">
+                            <a  class="post-date">{{ latestevent.date}}</a>
+                            <a href="{% url 'adventureapp:clienteventsdetail' latestevent.id %}" class="post-catagory">{{ latestevent.title }}</a>
+                        </div>
+                        <!-- Post Title -->
+                        <a href="{% url 'adventureapp:clienteventsdetail' latestevent.id %}" class="post-title">{{ latestevent.title}}</a>
+                        <p class="text-justify">{{ latestevent.description|truncatewords_html:50}}</p>
+                        <a href="{% url 'adventureapp:clienteventsdetail' latestevent.id %}" class="btn continue-btn"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
+
+                        <a href="{% url "adventureapp:clienteventsdetail" latestevent.id%}"> <div class= "col  text-center p">
+                    <button style="background-color: maroon"  class="btn btn-sm text-white" >Read more</button>
+                </div>
+                            </a>
+                    </div>
+
+                </div>
+
+                {% endfor %}
+
+
+
+            </div>
+        </div>
+    </section>
+    <!-- Events Area End -->
+
+    <!-- Carousel Pics Area Start -->
+    <section class="roberto-project-area pt-5 ">
+        <!-- Projects Slide -->
+        <div class="projects-slides owl-carousel">
+            <!-- Single Project Slide -->
+
+            {% for pics in carouselpics %}
+
+
+
+            <div class="single-project-slide active bg-img" style= "background-image: url({{ pics.image.url}}); height: 300px;">
+                <!-- Project Text -->
+                <div class="project-content">
+                    <div class="text ">
+
+{#                        <a href="{% url 'adventureapp:clientgallery' %}"><h5>{{ pics.album }}</h5></a>#}
+                    </div>
+                </div>
+                <!-- Hover Effects -->
+                <div class="hover-effects">
+{#                    <div >#}
+{##}
+{#                         <a href="{% url 'adventureapp:clientgallery' %}"><h5 class="text-white text-center">{{ pics.album }}</h5></a>#}
+{#                          </div>#}
+
+                    <a href="{% url 'adventureapp:clientgallery' %}" class="btn project-btn">View Album<i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+    </section>
+    <!--  Carousel Area End -->
+
+
+
+    <!-- Video Area Start -->
+    <section class=" mt-5 roberto--video--area bg-img bg-overlay jarallax  section-padding-0-100" style="background-image: url( {{ org.profile_video_thumbnail }} )">
+        <div class="container h-100">
+            <div class="row h-100 align-items-center justify-content-center">
+                <div class="col-12 col-md-6">
+                    <!-- Section Heading -->
+                    <div class="section-heading text-center white wow fadeInUp" data-wow-delay="100ms">
+                        <h6>Ultimate Solutions</h6>
+                        <h2>Our Hotel &amp; Room</h2>
+                    </div>
+                    <div class="video-content-area mt-100 wow fadeInUp" data-wow-delay="200ms">
+{#                        <a  href=https://www.youtube.com/embed/3IQlYtPDnoE" class="video-play-btn"><i class="fa fa-play"></i></a>#}
+
+                    <a id="video1"  video-url="{{ org.profile_video }}">
+                            <h4 class="text-center text-white" >Watch video!!</h4>
+                         <h2 class=" text-white text-center "><i class="fa fa-youtube-play text-danger fa-3x"></i></h2>
+                     </a>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Video Area End -->
+
+
+
+<!-- Outdoor Activities Area Start -->
+     <section class="wrapper-full tab-container effectTab-header" id="style_10">
+      <div class="wrapper tab-item">
+        <div class="custom-row">
+          <div class="wrapper " align="center">
+            <h1 class="title">Outdoor <br> Activities</h1>
+          </div>
+
+          <div class="column-12 column-xs-12 tab">
+            <div class="custom-row">
+                {% for activity in activities %}
+              <div class="column-4 column-xs-12 column-sm-6 column-md-6 box-tab wow fadeInUp " data-wow-delay="200ms" >
+                <div class="effect effect-ten">
+                  <img style="height: 230px;" src="{{ activity.image.url}}" class="img-fluid">
+                  <div class="tab-text">
+                    <h2> <strong>{{ activity.title }}</strong></h2>
+
+                    <div class="icons-block "><a href="{% url 'adventureapp:clientactivitydetail' activity.id %}"><button  class="social-icon-1 btn btn-warning shadow-lg">View Details</button></a> </div>
+                  </div>
+                </div>
+              </div>
+                {% endfor %}
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+    <!-- Outdoor Activities Area End -->
+
+
+
+
+
+    <!-- Testimonials Area Start -->
+   <section style=" background-image: url('{{ org.profile_image.url }}')" class="section-padding-100-0 bg-overlay">
+	<div  class="container ">
+        <h2 class="text-white text-center mb-5">What our guests say!!</h2>
+      <div class="row">
+        <div class="col-sm-12">
+          <div id="customers-testimonials" class="owl-carousel">
+            {% for review in reviews %}
+
+
+
+            <!--TESTIMONIAL 1 -->
+            <div class="item ">
+              <div class="shadow-effect wow fadeInUp " data-wow-delay="200ms"> {% if review.image %}
+
+
+                <img class="img-circle rounded-circle" src="{{ review.image.url}}" alt="">
+                  {% else %}
+                   <img class="img-circle rounded-circle" src="/media/organization/logo.jpg" alt="">
+                   {% endif %}
+                  <h6 class="mt-5 text-dark">{{ review.quote}}</h6>
+              </div>
+                <div class="testimonial-name wow fadeInUp " data-wow-delay="200ms">{{ review.name}} <br> <small> ({{ review.address }})</small></div>
+            </div>
+            <!--END OF TESTIMONIAL 1 -->
+                {% endfor %}
+
+          </div>
+        </div>
+      </div>
+      </div>
+    </section>
+       <!-- Testimonials Area End -->
+
+
+
+
+ <!-- Call To Action Area Start -->
+    <section class="roberto-cta-area pt-5 ">
+        <div class="container">
+            <div class="cta-content bg-img bg-overlay jarallax" style=" background-image: url({{ org.profile_image.url}});">
+                <div class="row align-items-center">
+                    <div class="col-12 col-md-7">
+                        <div class="cta-text mb-50">
+                            <h2>Contact us now!</h2>
+                            <h6>Contact {{org.contact_no}} to book directly or for advice</h6>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-5 text-right">
+                        <a href="#" class="btn roberto-btn mb-50">Contact Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Call To Action Area End -->
+
+    <!-- Partner Area Start -->
+    <div class="partner-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="partner-logo-content d-flex align-items-center justify-content-between wow fadeInUp" data-wow-delay="300ms">
+                        <!-- Single Partner Logo -->
+                        <a href="#" class="partner-logo"><img src="img/core-img/p1.png" alt=""></a>
+                        <!-- Single Partner Logo -->
+                        <a href="#" class="partner-logo"><img src="img/core-img/p2.png" alt=""></a>
+                        <!-- Single Partner Logo -->
+                        <a href="#" class="partner-logo"><img src="img/core-img/p3.png" alt=""></a>
+                        <!-- Single Partner Logo -->
+                        <a href="#" class="partner-logo"><img src="img/core-img/p4.png" alt=""></a>
+                        <!-- Single Partner Logo -->
+                        <a href="#" class="partner-logo"><img src="img/core-img/p5.png" alt=""></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Partner Area End -->
+
+{% endblock %}
+{% block js %}
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.1.1/owl.carousel.min.js"> </script>
+
+    <script src="{% static 'clientstatic/gallery+lightbox/js/ekko-lightbox.min.js' %}"></script>
+
+<script>
+    $(document).on("click", '[data-toggle="lightbox"]', function(event) {
+  event.preventDefault();
+  $(this).ekkoLightbox();
+});
+</script>
+
+
+    <script>
+    jQuery(document).ready(function($) {
+        		"use strict";
+        		//  TESTIMONIALS CAROUSEL HOOK
+		        $('#customers-testimonials').owlCarousel({
+		            loop: true,
+		            center: true,
+		            items: 3,
+		            margin: 0,
+		            autoplay: true,
+		            dots:true,
+		            autoplayTimeout: 8500,
+		            smartSpeed: 450,
+		            responsive: {
+		              0: {
+		                items: 1
+		              },
+		              768: {
+		                items: 2
+		              },
+		              1170: {
+		                items: 3
+		              }
+		            }
+		        });
+        	});
+    </script>
+
+     <script src="{% static 'clientstatic/ytpopup/video.popup.js' %}"></script>
+    <script>
+    $("#video1").videoPopup({
+
+  // autoplay on open
+  autoplay: true,
+
+  // shows video controls
+  showControls: true,
+
+  // colors of controls
+  controlsColor: null,
+
+  // infinite loop
+  loopVideo: false,
+
+  // shows video information
+  showVideoInformations: true,
+
+  // width
+  width: null
+
+});
+
+    </script>
+
+
+{% endblock %}

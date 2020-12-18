@@ -1,0 +1,134 @@
+{% extends 'admintemplates/adminbase.html' %}
+{% load static %}
+
+{% block css %}
+
+
+
+    <style>
+    .popover{
+    max-width: 100%; /* Max Width of the popover (depending on the container!) */
+}
+
+    </style>
+
+
+
+{% endblock %}
+{% block subscribersactive %}active{% endblock %}
+
+
+{% block content %}
+
+
+     <div class="header ">
+                        <h1 class="page-header">
+                            Reviews
+
+
+
+
+                               </h1>
+						<ol class="breadcrumb">
+					  <li><a href="#">Home</a></li>
+					  <li><a href="#">Tables</a></li>
+					  <li class="active">Data</li>
+					</ol>
+
+		</div>
+
+
+    <div id="page-inner">
+    <div class="container-fluid">
+<table id="example" class="display nowrap" style="width:100%">
+                            <thead>
+                                    <tr>
+                                        <th>SN.</th>
+                                            <th>Name</th>
+                                            <th>Address</th>
+                                            <th>Topic</th>
+                                            <th>Quote</th>
+                                            <th>Image</th>
+                                            <th>Action</th>
+                                    </tr>
+                            </thead>
+                             <tbody>
+                                   {% for rev in review %}
+
+
+                                        <tr>
+                                        <td>{{ forloop.counter }}</td>
+
+
+
+                                       <td>{{ rev.name }}</td>
+                                       <td>{{ rev.address }}</td>
+                                       <td>{{ rev.topic }}</td>
+                                        <div>
+                                        <td> <a tabindex="0" class="btn btn-sm btn-danger" data-container="body" data-placement="top" role="button" data-toggle="popover" data-trigger="focus" title="Dismissible popover" data-content="{{ rev.quote}}">View Quote</a></td>
+                                 </div>
+{#                                            <td>{{ rev.quote|truncatechars_html:30 }}</td>#}
+                                       <td> {% if rev.image %}
+
+                                       <img  src="{{rev.image.url}}" alt="" style="width: 45px;" >
+                                        {% endif %}
+                                       </td>
+
+
+
+
+                                     <td>
+                                        <a onclick="return confirm('Are you sure you want to delete?');" id="delete-button" type="button" class=" demo btn btn-sm btn-danger"  href="{% url 'adventureapp:adminreviewdelete' rev.id %}">Delete</a>
+                                     </td>
+
+                                   </tr>
+                                   {% endfor %}
+
+                                    </tbody>
+
+                                </table>
+
+                            </div>
+                         </div>
+
+
+
+
+
+
+
+{% endblock %}
+
+  {% block js %}
+
+
+
+
+{#<script>#}
+{#    $('.demo').confirmation({#}
+{#         placement    :'top',#}
+{##}
+{##}
+{#});#}
+{#    </script>#}
+      <script>
+
+
+   $(document).ready(function() {
+    var table = $('#example').DataTable( {
+        "autoWidth": false,
+        rowReorder: {
+            selector: 'td:nth-child(2)'
+        },
+        responsive: true
+    } );
+} );
+
+$(function () {
+  $('[data-toggle="popover"]').popover()
+})
+
+     </script>
+
+
+     {% endblock %}

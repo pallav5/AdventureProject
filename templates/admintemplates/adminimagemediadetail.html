@@ -1,0 +1,50 @@
+{% extends 'admintemplates/adminbase.html' %}
+{% block title %} ImageMedia Detail{% endblock %}
+{% block content %}
+
+
+
+		  <div class="header">
+                        <h1 class="page-header">
+                        {{ albumdetail.title }}  (details)
+                        </h1>
+						<ol class="breadcrumb">
+					  <li><a href="#">Home</a></li>
+					  <li><a href="#">Empty</a></li>
+					  <li class="active">Data</li>
+					</ol>
+
+		</div>
+            <div id="page-inner">
+
+			  <div class="row">
+
+                    <div class="col-md-12">
+                    <div class="card">
+                    <div class="card-content">
+
+                           <div class="clearBoth"><br/></div>
+                       <h3 class=""> Thumbnail: </h3> <br>
+                             <img src="{{albumdetail.image.url}}" class="img-fluid my-3"
+										 style="width:90%; max-height: 300px; object-fit: contain;">
+
+
+						 </div>
+                        <div class="card-action">
+                            Title :
+                          Album  "{{ albumdetail.title }}"
+                        </div>
+                        <div class="card-action">
+                           <span>Description:</span>  {{ albumdetail.description }}
+                        </div>
+
+						 </div>
+
+
+				</div>
+             <!-- /. PAGE INNER  -->
+            </div>
+
+            </div>
+
+{% endblock %}

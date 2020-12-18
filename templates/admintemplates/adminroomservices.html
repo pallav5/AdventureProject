@@ -1,0 +1,117 @@
+{% extends 'admintemplates/adminbase.html' %}
+{% load static %}
+
+{% block css %}
+
+
+
+
+{% endblock %}
+{% block subscribersactive %}active{% endblock %}
+
+
+{% block content %}
+
+
+     <div class="header ">
+                        <h1 class="page-header">
+                            Room Services
+                        </h1>
+						<ol class="breadcrumb">
+					  <li><a href="#">Home</a></li>
+					  <li><a href="#">Tables</a></li>
+					  <li class="active">Data</li>
+					</ol>
+
+		</div>
+
+
+     <div id="page-inner">
+    <div class="container-fluid">
+
+ <table id="example" class="display nowrap" style="width:100%">
+                            <thead>
+                                        <tr >
+                                            <th>SN.</th>
+                                            <th>Title</th>
+                                            <th>Icon</th>
+                                            <th>Actions</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                   {% for roomservice in roomservices %}
+
+
+
+
+
+
+                                        <tr>
+                                            <td>{{ forloop.counter }}</td>
+
+
+
+                                       <td>{{ roomservice.title }}</td>
+
+
+                                     <td>{% if roomservice.icon %}
+
+                                         <img src="{{ roomservice.icon.url }}" alt="">
+
+
+                                     {% endif %} </td>
+                                     <td><a type="button" class="btn btn-sm btn-warning" href="{% url 'adventureapp:adminroomservicesupdate' roomservice.id %}">Update</a>
+                                        <a id="delete-button" type="button" class=" demo btn btn-sm btn-danger"  href="{% url 'adventureapp:adminroomservicesdelete' roomservice.id %}">Delete</a>
+                                     </td>
+
+                                   </tr>
+                                   {% endfor %}
+
+                                    </tbody>
+
+                                </table>
+
+     </div>
+    </div>
+
+
+
+
+
+
+{% endblock %}
+
+  {% block js %}
+
+
+<script>
+    $('.demo').confirmation({
+         placement       :'top',
+        title           : 'Are you sure?',
+      btnOkClass      : 'btn btn-sm btn-danger',
+      btnOkLabel      : 'Delete',
+      btnOkIcon       : 'glyphicon glyphicon-ok',
+      btnCancelClass  : 'btn btn-sm btn-default',
+      btnCancelLabel  : 'Cancel',
+      btnCancelIcon   : 'glyphicon glyphicon-remove',
+
+});
+
+
+
+
+   $(document).ready(function() {
+    var table = $('#example').DataTable( {
+        "autoWidth": false,
+        rowReorder: {
+            selector: 'td:nth-child(2)'
+        },
+        responsive: true
+    } );
+} );
+
+     </script>
+
+
+     {% endblock %}

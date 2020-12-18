@@ -1,0 +1,8 @@
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">&times;</button>
+</div>
+<form class="form" method="POST" action="{% url 'adventureapp:adminroomdelete' object.id %}">{% csrf_token %}
+{#    <div class="modal-body text-center">#}
+{#        Are you sure you want to delete {{object}}?#}
+     <input type="submit">
+</form>

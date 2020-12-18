@@ -1,0 +1,133 @@
+{% extends 'admintemplates/adminbase.html' %}
+{% load static %}
+
+{% block css %}
+    <style>    .popover{
+    max-width: 100%; /* Max Width of the popover (depending on the container!) */
+
+}
+</style>
+
+
+{% endblock %}
+{% block roomactive %}active{% endblock %}
+
+
+{% block content %}
+
+
+
+
+    <div class="header ">
+                        <h1 class="page-header">
+                           Messages
+
+                        </h1>
+						<ol class="breadcrumb">
+					  <li><a href="#">Home</a></li>
+					  <li><a href="#">Tables</a></li>
+					  <li class="active">Data</li>
+					</ol>
+
+		</div>
+
+
+    <div id="page-inner">
+    <div class="card ">
+                        <div  class="card-action text-center">
+                              <h3> Messages</h3>
+
+                        </div>
+                        <div class="card-content">
+                            <div class=" table table-responsive  table-bordered ">
+
+                                <table id="example" class="display nowrap" style="width:100%">
+                             <thead>
+                                    <tr>
+                                      <th scope="col">SN.</th>
+                                      <th scope="col">Sender</th>
+                                      <th scope="col">Mobile</th>
+                                      <th scope="col">Email</th>
+                                      <th scope="col">Subject</th>
+                                      <th scope="col">Message</th>
+                                      <th scope="col">Delete</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                  {% for message in messages %}
+
+
+
+
+
+
+
+
+                                    <tr>
+                                      <th scope="row">{{ forloop.counter }}</th>
+                                      <td>{{ message.sender }}</td>
+                                      <td>{{ message.mobile}}</td>
+                                      <td>{{ message.email}}</td>
+                                      <td>{{ message.subject}}</td>
+
+                                      <td> <a tabindex="0" class="btn btn-sm " data-container="body" data-placement="top" role="button" data-toggle="popover" data-trigger="focus" title="Description" data-content=" {% if message.message %} {{ message.message}} {% endif %}">View message</a></td>
+                                    <td>
+                                        <a onclick="return confirm('Are you sure you want to delete?');" id="delete-button" type="button" class=" demo btn btn-sm btn-danger"  href="{% url 'adventureapp:adminmessagedelete' message.id %}">Delete</a>
+                                    </td>
+                                    </tr>
+
+                                  {% endfor %}
+
+
+
+                                  </tbody>
+
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+{% endblock %}
+{% block js %}
+
+{#    <script>#}
+{#    $('.demo').confirmation({#}
+{#         placement       :'top',#}
+{#        title           : 'Are you sure?',#}
+{#      btnOkClass      : 'btn btn-sm btn-danger',#}
+{#      btnOkLabel      : 'Delete',#}
+{#      btnOkIcon       : 'glyphicon glyphicon-ok',#}
+{#      btnCancelClass  : 'btn btn-sm btn-default',#}
+{#      btnCancelLabel  : 'Cancel',#}
+{#      btnCancelIcon   : 'glyphicon glyphicon-remove',#}
+{##}
+{#});#}
+{#     </script>#}
+
+
+
+      <script>
+
+
+   $(document).ready(function() {
+    var table = $('#example').DataTable( {
+        "autoWidth": false,
+        rowReorder: {
+            selector: 'td:nth-child(2)'
+        },
+        responsive: true
+    } );
+} );
+
+$(function () {
+  $('[data-toggle="popover"]').popover()
+})
+
+     </script>
+
+{% endblock %}

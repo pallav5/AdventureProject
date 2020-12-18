@@ -1,0 +1,244 @@
+{% extends 'admintemplates/adminbase.html' %}
+{% load static %}
+
+{% block css %}
+
+    <style>
+    #page-inner{
+        min-height: 10px;
+    }
+   </style>
+
+{% endblock %}
+{% block roomactive %}active{% endblock %}
+
+
+{% block content %}
+             <!-- /. PAGE INNER  -->
+		  <div class="header">
+                        <h1 class="page-header">
+                            Rooms
+                        </h1>
+						<ol class="breadcrumb">
+					  <li><a href="#">Home</a></li>
+					  <li><a href="#">Tables</a></li>
+					  <li class="active">Data</li>
+					</ol>
+
+		</div>
+
+            <div id="page-inner">
+
+
+            <div class="row ">
+            <div class="col-xs-12 col-sm-6 col-md-3">
+                    <a style="text-decoration: none" href="{% url 'adventureapp:adminroomservices' %}">
+					<div class="card horizontal cardIcon waves-effect waves-dark">
+						<div class="card-image light-green">
+						<i class="material-icons dp48">menu</i>
+						</div>
+						<div class="card-stacked green">
+						<div class="card-content">
+						<h3>{{ roomservice|length }}</h3>
+						</div>
+						<div class="card-action">
+						<strong>Room services</strong>
+						</div>
+						</div>
+						</div>
+                    </a>
+
+                    </div>
+             <div class="col-xs-12 col-sm-6 col-md-3">
+                    <a style="text-decoration: none" href="{% url 'adventureapp:adminfeatures' %}">
+					<div class="card horizontal cardIcon waves-effect waves-dark">
+						<div class="card-image light-blue">
+						<i class="material-icons dp48">supervisor_account</i>
+						</div>
+						<div class="card-stacked blue">
+						<div class="card-content">
+						<h3>{{ roomfeatures|length }}</h3>
+						</div>
+						<div class="card-action">
+						<strong>Room Features</strong>
+						</div>
+						</div>
+						</div>
+                    </a>
+
+                    </div>
+
+                    <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-action">
+                         Room Types
+                        </div>
+
+                         <div class="card-content">
+
+                         <a href="{% url 'adventureapp:adminroomtypeadd' %}" class="pull-right"><i class="fa fa-plus-circle " style="font-size: 60px" aria-hidden="true"></i></a>
+						 <div class="dashboard-cards">
+                        <div class="row">
+
+                     {% for roomtype in roomtypelist %}
+
+                         <div class="col-xs-12 col-sm-6 col-md-2">
+                        <div class="row center-block"><a  href="{% url 'adventureapp:adminroomtypeupdate' roomtype.id%}"><i class="fa fa-pencil" style="font-size: 30px;"></i></a>
+                            <a onclick="return confirm('Are you sure you want to delete this item?');" class="demo" href="{% url 'adventureapp:adminroomtypedelete' roomtype.id%}"> <i class="fa fa-trash-o" style="font-size: 30px;"></i></a>
+                            </div>
+
+						<div class="card-stacked red">
+
+
+						<div class="card-action ">
+
+
+					    {{ roomtype.title }}<br> <br>
+
+
+						</div>
+
+						</div>
+
+
+
+                    </div>
+                       {% endfor %}
+
+                   </div>
+			      </div>
+                           <div class="clearBoth"><br/></div>
+
+						 </div>
+						 </div>
+                    </div>
+
+
+				</div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- Advanced Tables -->
+                    <div class="card">
+                        <div class="card-action">
+                             Room List
+                        </div>
+
+                        <div class="card-content">
+
+
+                        <a href="{% url 'adventureapp:adminroomadd' %}" class="pull-right"><i class="fa fa-plus-circle " style="font-size: 60px" aria-hidden="true"></i></a>
+                            <div class="table-responsive">
+                                <table class="display nowrap" style="width:100%"     id="example">
+                                    <thead>
+                                        <tr>
+                                            <th>SN</th>
+                                            <th>Room No.</th>
+                                            <th>Image</th>
+                                            <th>Type</th>
+                                            <th>Price</th>
+                                            <th>Details</th>
+                                            <th>Status</th>
+                                            <th>Change room status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+
+                                                      	{% for room in roomlist %}
+                <tr>
+
+                  <td>{{forloop.counter}}</td>
+                  <td>{{room.number}}</td>
+
+                  <td><img src="{% if room.image %} {{room.image.url}} {% else %}{% endif %}" width="75" alt="No Image"> </td>
+              <td>{{ room.type }}</td>
+              <td>{{ room.price}}</td>
+                   <td><a href="{% url 'adventureapp:adminroomdetail' room.id%}" type="button" class="btn btn-sm btn-warning">Details </a></td>
+                    <td>
+                        {% if room.is_reserved == True %}
+                        <strong class="bg-danger">Reserved</strong>
+                    {% else %}
+                        <strong class="bg-success">Available</strong>
+                    {% endif %}
+                    </td>
+
+
+                    <td>
+
+
+                <a href="{% url 'adventureapp:adminbookingtoogle' room.id %}"
+                        class="btn btn-primary btn-xs" >
+                       {% if room.is_reserved == True %}
+                         make available
+                       {% else %}
+                         make reserved
+                       {%endif%}
+
+                    </a>
+
+
+
+                </td>
+                    <td>
+                  <a href="{% url 'adventureapp:adminroomupdate' room.id%}" type="button" class="btn btn-sm btn-rose">Update</a>/
+                 <a id="delete-button" type="button" onclick="return confirm('Are you sure you want to delete this item?');" class=" demo btn btn-sm btn-danger"  href="{% url 'adventureapp:adminroomdelete' room.id %}">Delete</a>
+                    </td>
+
+
+
+                </tr>
+                {% endfor %}
+
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!--End Advanced Tables -->
+                </div>
+            </div>
+            </div>
+
+             <!-- /. PAGE INNER  -->
+
+
+{% endblock %}
+{% block js %}
+        <!-- DATA TABLE SCRIPTS -->
+    <script src="{% static 'adminstatic/js/dataTables/jquery.dataTables.js' %}"></script>
+    <script src="{% static 'adminstatic/js/dataTables/dataTables.bootstrap.js' %}"></script>
+
+    <script src="{% static 'adminstatic/js/tooltip/bootstrap-confirmation.min.js' %}"></script>
+
+     <script>
+            $(document).ready(function() {
+    var table = $('#example').DataTable( {
+        "autoWidth": false,
+        rowReorder: {
+            selector: 'td:nth-child(2)'
+        },
+        responsive: true
+    } );
+} );
+
+
+            {#    $('.demo').confirmation({#}
+            {##}
+            {#  placement    :'top',#}
+            {#});#}
+
+
+
+    </script>
+
+
+    <script>
+
+    </script>
+
+
+
+{% endblock %}

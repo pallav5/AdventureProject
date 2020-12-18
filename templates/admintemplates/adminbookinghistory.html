@@ -1,0 +1,189 @@
+{% extends 'admintemplates/adminbase.html' %}
+{% load static %}
+
+{% block css %}
+
+    <style>
+    #page-inner{
+        min-height: 10px;
+    }
+   </style>
+
+{% endblock %}
+
+
+{% block bookactive %}active{% endblock %}
+{% block content %}
+             <!-- /. PAGE INNER  -->
+		  <div class="header">
+                        <h1 class="page-header">
+                            <h3 class="text-center"><strong> Booking History Records</strong></h3>  </h1>
+						<ol class="breadcrumb">
+					  <li><a href="#">Home</a></li>
+					  <li><a href="#">Tables</a></li>
+					  <li class="active">Data</li>
+					</ol>
+
+		</div>
+
+            <div>
+
+
+
+
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- Advanced Tables -->
+                    <div class="card">
+                        <div class="card-action">
+                            <h4><strong>Booking History Records</strong></h4>
+                            <a href="{% url 'adventureapp:bookingchart' %}" class=" btn btn-success">View Booking Chart</a>
+                            <a href="{% url 'adventureapp:adminbookinglist' %}" class=" btn btn-sm btn-danger">View Booking List</a>
+                            <a href="{% url 'adventureapp:adminbookingconfirmedlist' %}" class=" btn btn-sm btn-primary">View confirmed list</a>
+
+
+                        </div>
+
+                        <div class="card-content">
+
+{#                        <a href="{% url 'adventureapp:adminroomadd' %}" class="pull-right"><i class="fa fa-plus-circle " style="font-size: 60px" aria-hidden="true"></i></a>#}
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover" id="example">
+                                    <thead>
+                                        <tr>
+                                            <th>SN</th>
+                                            <th>First Name</th>
+                                            <th>Last Name</th>
+                                            <th>Room</th>
+                                            <th>Checked in</th>
+                                            <th>Checked out</th>
+                                            <th>Email</th>
+                                            <th>Address</th>
+                                            <th>Phone</th>
+                                            <th>Room Price</th>
+{#                                            <th>Confirm Booking</th>#}
+{#                                            <th>Checkout</th>#}
+{#                                            <th>Room status</th>#}
+{#                                            <th>Booking Status</th>#}
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+
+                 {% for bookers in bookinghistory %}
+                     {% if  bookers.customer_status == 'checked_out' %}
+
+
+                <tr>
+
+                  <td>{{forloop.counter}}</td>
+                  <td>{{bookers.first_name}}</td>
+
+                  <td>{{ bookers.last_name }}</td>
+              <td>{{ bookers.room }}</td>
+              <td>{{ bookers.check_in}}</td>
+              <td>{{ bookers.check_out}}</td>
+              <td>{{ bookers.email}}</td>
+              <td>{{ bookers.address}}</td>
+              <td>{{ bookers.phone}}</td>
+              <td>{{ bookers.room.price}}</td>
+
+{#                <td>#}
+{#                      <div class="col">#}
+{##}
+{#                <a href="{% url 'adventureapp:adminbookingconfirm' bookers.id %}"#}
+{#                        class="btn btn-primary btn-sm" >#}
+{#                       Confirm booking#}
+{##}
+{#                    </a>#}
+{##}
+{##}
+{#                  </div>#}
+{#                </td>#}
+
+{#                <td>#}
+{##}
+{#                    <div class="col">#}
+{##}
+{#                <a href="{% url 'adventureapp:adminbookingcheckout' bookers.room.id %}"#}
+{#                        class="btn btn-primary btn-sm" >#}
+{#                       checked out#}
+{##}
+{#                    </a>#}
+{##}
+{##}
+{#                  </div>#}
+{#                </td>#}
+
+
+
+
+{#                    <td>#}
+{#                        {% if bookers.room.is_reserved == True %}#}
+{#                        <strong class="bg-danger">Reserved</strong>#}
+{#                    {% else %}#}
+{#                        <strong class="bg-success">Available</strong>#}
+{#                    {% endif %}#}
+{#                    </td>#}
+{##}
+{#                <td>#}
+{#                    {% if bookers.confirm == True %}#}
+{#                        <strong class="bg-danger">Booking confirmed</strong>#}
+{#                    {% else %}#}
+{#                        <strong class="bg-success">Booking confirmation pending!</strong>#}
+{#                    {% endif %}#}
+{##}
+{#                </td>#}
+
+                </tr>
+                     {% endif %}
+                        {% endfor %}
+
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!--End Advanced Tables -->
+                </div>
+            </div>
+            </div>
+
+             <!-- /. PAGE INNER  -->
+
+
+
+
+    {% block js %}
+        <!-- DATA TABLE SCRIPTS -->
+    <script src="{% static 'adminstatic/js/dataTables/jquery.dataTables.js' %}"></script>
+    <script src="{% static 'adminstatic/js/dataTables/dataTables.bootstrap.js' %}"></script>
+
+
+
+     <script>
+            $(document).ready(function() {
+    $('#example').DataTable({
+      "pagingType": "full_numbers",
+      "lengthMenu": [
+        [10, 25, 50, -1],
+        [10, 25, 50, "All"]
+      ],
+      responsive: true,
+      language: {
+        search: "_INPUT_",
+        searchPlaceholder: "Search records",
+      }
+    });
+  });
+    </script>
+
+{% endblock %}
+
+
+
+{% endblock %}

@@ -1,0 +1,524 @@
+{% extends 'admintemplates/adminbase.html' %}
+
+{% block title %} Dashboard {% endblock %}
+{% block dashactive %}active{% endblock %}
+
+{% block css %}
+    <style>
+
+
+/*
+Generic Styling, for Desktops/Laptops
+*/
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+/* Zebra striping */
+tr:nth-of-type(odd) {
+  background: #eee;
+}
+th {
+  background: #333;
+  color: white;
+  font-weight: bold;
+}
+td, th {
+  padding: 6px;
+  border: 1px solid #ccc;
+  text-align: left;
+}
+
+    /*
+Max width before this PARTICULAR table gets nasty
+This query will take effect for any screen smaller than 760px
+and also iPads specifically.
+*/
+@media
+only screen and (max-width: 760px),
+(min-device-width: 768px) and (max-device-width: 1024px)  {
+
+	/* Force table to not be like tables anymore */
+	table, thead, tbody, th, td, tr {
+		display: block;
+	}
+
+	/* Hide table headers (but not display: none;, for accessibility) */
+	thead tr {
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+
+	tr { border: 1px solid #ccc; }
+
+	td {
+		/* Behave  like a "row" */
+		border: none;
+		border-bottom: 1px solid #eee;
+		position: relative;
+		padding-left: 50%;
+	}
+
+	td:before {
+		/* Now like a table header */
+		position: absolute;
+		/* Top/left values mimic padding */
+		top: 6px;
+		left: 6px;
+		width: 45%;
+		padding-right: 10px;
+		white-space: nowrap;
+	}
+
+	/*
+	Label the data
+	*/
+
+}
+    </style>
+{% endblock %}
+
+{% block content %}
+
+
+     <div class="header ">
+       <h1 class="page-header">
+         Dashboard  <a href="{% url 'adventureapp:bookingchart' %}" class=" btn btn-success">View Booking Chart</a>
+       </h1>
+
+        </div>
+
+            <div id="page-inner" class="mb-2">
+
+			<div class="dashboard-cards">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-3" id="">
+
+                        <a href = {% url 'adventureapp:adminroomlist' %}>
+						<div class="card horizontal cardIcon waves-effect waves-dark">
+						<div class="card-image red">
+						<i class="material-icons dp48">room</i>
+						</div>
+						<div class="card-stacked red">
+						<div class="card-content">
+						<h3>{{ rooms|length }}</h3>
+						</div>
+						<div class="card-action">
+					 <strong>Rooms</strong> <br> <br>
+						</div>
+						</div>
+						</div>
+                        </a>
+
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-3">
+                          <a href = {% url 'adventureapp:adminbookinglist' %}>
+						<div class="card horizontal cardIcon waves-effect waves-dark">
+						<div class="card-image orange">
+						<i class="material-icons dp48">book</i>
+						</div>
+						<div class="card-stacked orange">
+						<div class="card-content">
+						<h3>{{ bookings|length }}</h3>
+						</div>
+						<div class="card-action">
+						<strong>BOOKINGS</strong> <br> <br>
+						</div>
+						</div>
+						</div>
+                          </a>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-3">
+                        <a href="{% url 'adventureapp:adminsubscriberlist' %}">
+							<div class="card horizontal cardIcon waves-effect waves-dark">
+						<div class="card-image blue">
+						<i class="material-icons dp48">equalizer</i>
+						</div>
+						<div class="card-stacked blue">
+						<div class="card-content">
+						<h3>{{ subscriber|length}}</h3>
+						</div>
+						<div class="card-action">
+						<strong>Subscriber</strong> <br> <br>
+						</div>
+						</div>
+						</div>
+                            </a>
+
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-3">
+                    <a href="{% url 'adventureapp:adminfeatures' %}">
+					<div class="card horizontal cardIcon waves-effect waves-dark">
+						<div class="card-image green">
+						<i class="material-icons dp48">supervisor_account</i>
+						</div>
+						<div class="card-stacked green">
+						<div class="card-content">
+						<h3>{{ features|length }}</h3>
+						</div>
+						<div class="card-action">
+						<strong>Org Features <br></strong> <br>
+						</div>
+						</div>
+						</div>
+                    </a>
+
+                    </div>
+
+
+
+                    <div class="col-xs-12 col-sm-6 col-md-3">
+                    <a href="{% url 'adventureapp:adminreviewlist' %}">
+					<div class="card horizontal cardIcon waves-effect waves-dark">
+						<div class="card-image orange">
+						<i class="material-icons dp48">person</i>
+						</div>
+						<div class="card-stacked green">
+						<div class="card-content">
+						<h3>{{ review|length }}</h3>
+						</div>
+						<div class="card-action">
+						<strong>Client Reviews</strong>
+						</div>
+						</div>
+						</div>
+                    </a>
+
+                    </div>
+
+
+                    <div class="col-xs-12 col-sm-6 col-md-3">
+                    <a href="{% url 'adventureapp:adminimagealbumlist' %}">
+					<div class="card horizontal cardIcon waves-effect waves-dark">
+						<div class="card-image blue-grey">
+						<i class="material-icons dp48">album</i>
+						</div>
+						<div class="card-stacked red">
+						<div class="card-content">
+						<h3>{{ album|length }}</h3>
+						</div>
+						<div class="card-action">
+						<strong>Image Albums</strong>
+						</div>
+						</div>
+						</div>
+                    </a>
+
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-3">
+                    <a href="{% url 'adventureapp:adminactivitylist' %}">
+					<div class="card horizontal cardIcon waves-effect waves-dark">
+						<div class="card-image purple">
+						<i class="material-icons dp48">activity</i>
+						</div>
+						<div class="card-stacked pink">
+						<div class="card-content">
+						<h3>{{ review|length }}</h3>
+						</div>
+						<div class="card-action">
+						<strong>Activities <br></strong><br>
+						</div>
+						</div>
+						</div>
+                    </a>
+
+                    </div>
+
+                    <div class="col-xs-12 col-sm-6 col-md-3">
+                    <a href="{% url 'adventureapp:adminfacilitieslist' %}">
+					<div class="card horizontal cardIcon waves-effect waves-dark">
+						<div class="card-image blue-grey">
+						<i class="material-icons dp48">menu</i>
+						</div>
+						<div class="card-stacked brown">
+						<div class="card-content">
+						<h3>{{ facilities|length }}</h3>
+						</div>
+						<div class="card-action">
+						<strong>Facilities <br></strong><br>
+						</div>
+						</div>
+						</div>
+                    </a>
+
+                    </div>
+                </div>
+                    <div class="row">
+
+                    <div class="col-xs-12 col-sm-6 col-md-3">
+                    <a href="{% url 'adventureapp:adminmessagelist' %}">
+					<div class="card horizontal cardIcon waves-effect waves-dark">
+						<div class="card-image blue-grey">
+						<i class="material-icons dp48">message</i>
+						</div>
+						<div class="card-stacked orange">
+						<div class="card-content">
+						<h3>{{ messages|length }}</h3>
+						</div>
+						<div class="card-action">
+						<strong>Messages<br></strong><br>
+						</div>
+						</div>
+						</div>
+                    </a>
+
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-3">
+                    <a href="{% url 'adventureapp:admineventslist' %}">
+					<div class="card horizontal cardIcon waves-effect waves-dark">
+						<div class="card-image light">
+						<i class="material-icons dp48">event</i>
+						</div>
+						<div class="card-stacked orange">
+						<div class="card-content">
+						<h3>{{ events|length }}</h3>
+						</div>
+						<div class="card-action">
+						<strong>Events<br></strong><br>
+						</div>
+						</div>
+						</div>
+                    </a>
+
+                    </div>
+                        </div>
+                </div>
+			   </div>
+				<!-- /. ROW  -->
+
+            <form id='submit-form' action="{% url 'adventureapp:roomavailability' %}" >
+              <button class="hidden" id="button" type="submit" >  Click  </button>
+            </form>
+
+
+
+
+            <!-- /. PAGE INNER  -->
+
+
+
+
+
+<div id="page-inner" class="card">
+       <div class="row">
+                <div class="col-md-12">
+
+                    <div class="card">
+                        <div class="card-action">
+                             <a href="{% url 'adventureapp:adminorganizationupdate' org.id %}" class="pull-right"><i class="fa fa-pencil mb-3 text-danger" style="font-size: 50px"></i></a>
+
+                      <h3 class="center"><strong>Organizational Details</strong>  </h3>
+                        </div>
+                        <div class="card-content">
+
+            <!--        Here you can write extra buttons/actions for the toolbar              -->
+
+
+                            <div class="table-responsive">
+
+   <table class="table table-striped table-bordered table-hover  ">
+
+        <thead class="bg-danger ">
+         <tr>
+
+        <th class="center " style="height: 50px" colspan='2' >Organization Info!!!</th>
+
+        </tr>
+        </thead>
+        <tbody>
+            <tr>
+      <th><b>Name:</b></th>
+      <td>{{ org.name }}</td>
+
+    </tr>
+    <tr>
+      <th >Logo:</th>
+      <td> <img  src="{{org.logo.url}}" alt="" style="width: 200px;" ></td>
+
+    </tr>
+    <tr>
+      <th>Profile Image:</th>
+      <td><img src="{{org.profile_image.url}}" alt="" style="width: 200px;" ></td>
+
+    </tr>
+
+  <tr>
+      <th><b>Address</b></th>
+      <td>{{ org.address }}</td>
+
+    </tr>
+
+  <tr>
+      <th><b>Contact No:</b></th>
+      <td>{{ org.contact_no }}</td>
+
+    </tr>
+
+   <tr>
+      <th><b> Alternative Contact No:</b></th>
+      <td>{{ org.alt_contact_no }}</td>
+
+    </tr>
+
+
+   <tr>
+      <th><b>Map Location:</b></th>
+      <td>{{ org.map_location|truncatechars_html:100 }}</td>
+
+    </tr>
+
+   <tr>
+      <th><b>Email:</b></th>
+      <td>{{ org.email }}</td>
+
+    </tr>
+   <tr>
+      <th><b>Alternative Email:</b></th>
+      <td>{{ org.alt_email }}</td>
+
+    </tr>
+
+            <tr>
+      <th><b>Facilities:</b></th>
+      <td>
+          {% for  facilities in org.facilities.all %}
+          {{ facilities }},
+          {% endfor %}
+      </td>
+
+    </tr>
+
+   <tr>
+      <th><b>About Us:</b></th>
+      <td>{{ org.about_us }}</td>
+
+    </tr>
+
+   <tr>
+      <th><b>Missiion Vision:</b></th>
+      <td>{{ org.mission_vision }}</td>
+
+    </tr>
+
+   <tr>
+      <th><b>Facebook:</b></th>
+      <td>{{ org.facebook }}</td>
+
+    </tr>
+
+    <tr>
+      <th><b>Instagram:</b></th>
+      <td>{{ org.instagram }}</td>
+
+    </tr>
+    <tr>
+      <th><b>Twitter:</b></th>
+      <td>{{ org.twitter }}</td>
+
+    </tr>
+
+    <tr>
+      <th><b>Youtube:</b></th>
+      <td>{{ org.youtube}}</td>
+
+    </tr>
+
+    <tr>
+      <th><b>Viber:</b></th>
+      <td>{{ org.viber }}</td>
+
+    </tr>
+
+    <tr>
+      <th><b>Whatsapp:</b></th>
+      <td>{{ org.whatsapp }}</td>
+
+    </tr>
+
+    <tr>
+      <th><b>Terms and Condition:</b></th>
+      <td >{{ org.terms_and_conditions|safe }}</td>
+
+    </tr>
+  <tr>
+      <th><b>Privacy Policy:</b></th>
+      <td>{{ org.privacy_policy|safe }}</td>
+
+    </tr>
+  </tbody>
+
+
+
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                     <!-- End  Kitchen Sink -->
+                </div>
+
+            </div>
+
+
+
+                         </div>
+
+
+
+
+
+    {% block js %}
+
+
+ <script type="text/javascript">
+
+
+    $(document).ready(function(){
+
+   $("#submit-form").submit(function(e){
+	// prevent from normal form behaviour
+       e.preventDefault();
+       $('#button').attr("disabled", true);
+
+    	// serialize the form data
+      	var serializedData = $(this).serialize();
+      	$.ajax({
+      		type : 'GET',
+      		url :  "{% url 'adventureapp:roomavailability' %}",
+      		data : serializedData,
+      		success : function(response){
+			//reset the form after successful submit
+                $("#submit-form")[0].reset()
+      		},
+      		error : function(response){
+      			console.log(response)
+      		},
+            complete: function() {
+                //Ajax request is finished, so we can enable
+                //the button again.
+                $('#button').attr("disabled", false);
+            }
+
+      	});
+   });
+});
+</script>
+
+
+
+<script>
+
+window.onload = function (e) {
+    document.getElementById('button').click()
+
+    e.preventDefault();
+
+}
+</script>
+
+
+{% endblock %}
+
+
+
+{% endblock %}

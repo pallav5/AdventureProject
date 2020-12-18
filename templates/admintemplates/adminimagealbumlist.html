@@ -1,0 +1,126 @@
+{% extends 'admintemplates/adminbase.html' %}
+{% load static %}
+
+{% block css %}
+
+
+
+{% endblock %}
+{% block subscribersactive %}active{% endblock %}
+
+
+{% block content %}
+
+
+     <div class="header ">
+                        <h1 class="page-header">
+                           Image Album Lists
+                        </h1>
+						<ol class="breadcrumb">
+					  <li><a href="#">Home</a></li>
+					  <li><a href="#">Tables</a></li>
+					  <li class="active">Data</li>
+					</ol>
+
+		</div>
+
+      <div id="page-inner">
+    <div class="container-fluid">
+    <a href="{% url 'adventureapp:adminimagealbumadd' %}" class="pull-right"><i class="fa fa-plus-circle " style="font-size: 60px" aria-hidden="true"></i></a>
+ <table id="example" class="display nowrap" style="width:100%">
+                             <thead>
+                                        <tr >
+                                            <th>SN.</th>
+                                            <th>Title</th>
+                                            <th>Image</th>
+                                            <th>Description</th>
+                                            <th>Details</th>
+                                            <th>Actions</th>
+
+
+                                        </tr>
+                                    </thead>
+                             <tbody>
+                                   {% for album in albums %}
+
+
+                                        <tr>
+                                        <td>{{ forloop.counter }}</td>
+
+
+
+                                       <td>{{ album.title }}</td>
+                                       <td><img style="width: 50px; height: 40px;" src="{{ album.image.url }}" alt=""></td>
+                                        <div>
+                                        <td> <a tabindex="0" class="btn btn-sm btn-danger" data-container="body" data-placement="top" role="button" data-toggle="popover" data-trigger="focus" title="Dismissible popover" data-content="{{ album.description}}">View Description</a></td>
+                                 </div>
+
+
+                                    <td>
+                                                    <a href="{% url 'adventureapp:adminimagealbumdetail'  album.id%}"><button class="btn btn-sm btn-success">View Details</button></a>
+                                        </td>
+
+                                     <td>
+
+                                        <a onclick="return confirm('Are you sure you want to delete?');" id="delete-button" type="button" class=" demo btn btn-sm btn-danger"  href="{% url 'adventureapp:adminimagealbumdelete' album.id %}">Delete</a> /
+                                         <a href="{% url 'adventureapp:adminimagealbumupdate'  album.id%}"><button class="btn btn-sm btn-warning">Update</button></a>
+
+
+                                     </td>
+
+
+                                   </tr>
+                                   {% endfor %}
+
+                                    </tbody>
+
+                                </table>
+
+                            </div>
+                         </div>
+
+
+
+
+
+
+
+
+{% endblock %}
+
+  {% block js %}
+
+
+
+<script>
+
+
+$(function () {
+  $('[data-toggle="popover"]').popover()
+})
+
+     </script>
+
+{#      <script>#}
+{#       $('.demo').confirmation({#}
+{#         placement    :'top',#}
+{##}
+{##}
+{#});#}
+{#    </script>#}
+      <script>
+
+
+   $(document).ready(function() {
+    var table = $('#example').DataTable( {
+        "autoWidth": false,
+        rowReorder: {
+            selector: 'td:nth-child(2)'
+        },
+        responsive: true
+    } );
+} );
+      </script>
+
+
+     {% endblock %}

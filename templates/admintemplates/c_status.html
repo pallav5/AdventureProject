@@ -1,0 +1,64 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+</head>
+<body>
+
+<div class="container">
+<form id ='submit-form' method="post">
+
+        {% csrf_token %}
+
+    {{ form.customer_status }}
+
+    <h1>{{ customer_status }}</h1>
+    <button id="button" type="submit" > Submit </button>
+
+</form>
+    </div>
+
+<script src="{% static 'adminstatic/js/jquery-1.10.2.js' %}"></script>
+
+<script type="text/javascript">
+    var tmp = 26
+   var url_mask = "{% url 'adventureapp:cstatusview' 12345 %}".replace(/12345/, tmp.toString());
+
+    console.log(url_mask)
+    $(document).ready(function(){
+
+   $("#submit-form").submit(function(e){
+	// prevent from normal form behaviour
+       e.preventDefault();
+       $('#button').attr("disabled", true);
+
+    	// serialize the form data
+      	var serializedData = $(this).serialize();
+      	$.ajax({
+      		type : 'POST',
+      		url :  url_mask,
+      		data : serializedData,
+      		success : function(response){
+			//reset the form after successful submit
+                $("#submit-form")[0].reset()
+      		},
+      		error : function(response){
+      			console.log(response)
+      		},
+            complete: function() {
+                //Ajax request is finished, so we can enable
+                //the button again.
+                $('#button').attr("disabled", false);
+            }
+
+      	});
+   });
+});
+    </script>
+
+</body>
+</html>
+
+

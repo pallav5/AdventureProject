@@ -1,0 +1,61 @@
+
+
+
+{% extends 'clienttemplates/clientbase.html' %}
+
+{% block css %}
+
+
+{% endblock %}
+
+{% block content %}
+ <!-- Breadcrumb Area Start -->
+    <div class="breadcrumb-area bg-img bg-overlay jarallax" style="background-image: url({{ activity.image.url}});">
+        <div class="container h-100">
+            <div class="row h-100 align-items-center">
+                <div class="col-12">
+                    <div class="breadcrumb-content text-center">
+                        <h2 class="page-title"> {{ activity.title }}</h2>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb justify-content-center">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Activities</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="container pt-5 ">
+  <div class="jumbotron shadow-lg">
+
+
+
+   <u> <h3 class="" >{{ activity.title}}</h3> </u>
+    <p class="text-justify">{{ activity.description}}</p>
+
+  </div>
+
+</div>
+
+
+
+
+
+
+    <!-- Blog Area End -->
+
+
+
+{% endblock %}
+
+
+
+{% block js %}
+
+
+{% endblock %}

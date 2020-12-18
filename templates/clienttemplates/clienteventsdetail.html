@@ -1,0 +1,404 @@
+
+
+
+{% extends 'clienttemplates/clientbase.html' %}
+{% load static  %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'clientstatic/gallery+lightbox/css/glightbox.css' %}">
+
+    <style>
+    .post-thumbnail > img {
+        height: 280px;
+        width: 500px;
+    }
+
+
+
+    @media (max-width:1281px),(min-width:801px) {
+
+
+        .instagram-feeds  img{
+            height: 210px;
+        width: 800px;
+
+        }
+
+        .post-thumbnail > img {
+        height: 450px;
+        width: 800px;
+    }
+
+          .gallery_product > img {
+
+            height: 180px;
+             width: 450px;
+        }
+        .gslide-image > img {
+                height: 500px;
+                width: 1000px;
+            }
+    }
+
+   @media only screen and (max-device-width: 480px){
+         .post-thumbnail > img {
+            width:600px;
+            height: 230px;
+        }
+
+           .single-widget-area > img{
+            height: 450px;
+        width: 800px;
+
+        }
+
+             .gallery-product > img {
+            height: 100px;
+            width : 200px;
+        }
+        .gslide-image > img {
+                height: 100%;
+                width: 100%;
+            }
+
+    }
+
+
+
+    .gallery-title
+{
+    font-size: 36px;
+    color: #7C0000;
+    text-align: center;
+    font-weight: 500;
+    margin-bottom: 70px;
+}
+.gallery-title:after {
+    content: "";
+    position: absolute;
+    width: 7.5%;
+    left: 46.5%;
+    height: 45px;
+
+}
+.filter-button
+{
+    font-size: 18px;
+    border: 1px solid #7C0000;
+    border-radius: 5px;
+    text-align: center;
+    color: #7C0000;
+    margin-bottom: 30px;
+
+}
+.filter-button:hover
+{
+    font-size: 18px;
+    border: 1px solid #7C0000;
+    border-radius: 5px;
+    text-align: center;
+    color: #ffffff;
+    background-color: #7C0000;
+
+}
+.filter-button.active
+{
+    background-color:#7C0000;
+    color: white;
+}
+.port-image
+{
+    width: 100%;
+}
+
+.gallery_product
+{
+    margin-bottom: 30px;
+	-webkit-animation-duration: 1s;
+            animation-duration: 1s;
+            -webkit-animation-fill-mode: both;
+            animation-fill-mode: both;
+}
+
+.block{
+    opacity: 0;
+}
+
+@-webkit-keyframes fadeIn {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+}
+@keyframes fadeIn {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+}
+.fadeIn {
+    -webkit-animation-name: fadeIn;
+    animation-name: fadeIn;
+}
+
+
+
+    </style>
+
+{% endblock %}
+
+{% block content %}
+ <!-- Breadcrumb Area Start -->
+    <div class="breadcrumb-area bg-img bg-overlay jarallax" style="background-image: url({{ org.profile_image.url}});">
+        <div class="container h-100">
+            <div class="row h-100 align-items-center">
+                <div class="col-12">
+                    <div class="breadcrumb-content text-center">
+                        <h2 class="page-title"> News & Events</h2>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb justify-content-center">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">News & Events</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+   <!-- Blog Area Start -->
+    <div class="roberto-news-area section-padding-100-0">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 col-lg-8">
+                    <!-- Post Thumbnail -->
+                    <div class="post-thumbnail mb-50">
+                        <img src="{{ org.profile_image.url }}" alt="">
+                    </div>
+                    <!-- Blog Details Text -->
+                    <div class="blog-details-text">
+                        <p class="text-justify">{{ events.description }}</p>
+
+                        <!-- Blockquote -->
+                        </div>
+
+                    <!-- Post Author Area -->
+                    <div class="post-author-area d-flex align-items-center justify-content-between mb-50">
+                        <ul class="popular-tags">
+                            <li><a href="#">{{ events.date}}</a></li>
+
+                        </ul>
+
+                        <!-- Author Social Info -->
+{#                        <div class="author-social-info d-flex align-items-center">#}
+{#                            <p>Share:</p>#}
+{#                            <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>#}
+{#                            <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>#}
+{#                            <a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a>#}
+{#                            <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>#}
+{#                            <a href="#"><i class="fa fa-envelope" aria-hidden="true"></i></a>#}
+{#                        </div>#}
+                    </div>
+
+{#                    <!-- Comments Area -->#}
+{#                    <div class="comment_area mb-50 clearfix">#}
+{#                        <h2>02 Comments</h2>#}
+{##}
+{#                        <ol>#}
+{#                            <!-- Single Comment Area -->#}
+{#                            <li class="single_comment_area">#}
+{#                                <!-- Comment Content -->#}
+{#                                <div class="comment-content d-flex">#}
+{#                                    <!-- Comment Author -->#}
+{#                                    <div class="comment-author">#}
+{#                                        <img src="img/bg-img/40.jpg" alt="author">#}
+{#                                    </div>#}
+{#                                    <!-- Comment Meta -->#}
+{#                                    <div class="comment-meta">#}
+{#                                        <a href="#" class="post-date">27 Aug 2016</a>#}
+{#                                        <h5>Brandon Kelley</h5>#}
+{#                                        <p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi.</p>#}
+{#                                        <a href="#" class="like">Like</a>#}
+{#                                        <a href="#" class="reply">Reply</a>#}
+{#                                    </div>#}
+{#                                </div>#}
+{##}
+{#                                <ol class="children">#}
+{#                                    <li class="single_comment_area">#}
+{#                                        <!-- Comment Content -->#}
+{#                                        <div class="comment-content d-flex">#}
+{#                                            <!-- Comment Author -->#}
+{#                                            <div class="comment-author">#}
+{#                                                <img src="img/bg-img/41.jpg" alt="author">#}
+{#                                            </div>#}
+{#                                            <!-- Comment Meta -->#}
+{#                                            <div class="comment-meta">#}
+{#                                                <a href="#" class="post-date">27 Aug 2018</a>#}
+{#                                                <h5>John Doe</h5>#}
+{#                                                <p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetu adipisci velit, sed quia non numquam eius modi</p>#}
+{#                                                <a href="#" class="like">Like</a>#}
+{#                                                <a href="#" class="reply">Reply</a>#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                    </li>#}
+{#                                </ol>#}
+{#                            </li>#}
+{##}
+{#                           #}
+{#                        </ol>#}
+{#                    </div>#}
+
+                    <!-- Leave A Reply -->
+{#                    <div class="roberto-contact-form mt-80 mb-100">#}
+{#                        <h2>Leave A Comment</h2>#}
+{##}
+{#                        <!-- Form -->#}
+{#                        <form action="#" method="post">#}
+{#                            <div class="row">#}
+{#                                <div class="col-12">#}
+{#                                    <input type="text" name="message-name" class="form-control mb-30" placeholder="Your Name">#}
+{#                                </div>#}
+{#                                <div class="col-12">#}
+{#                                    <input type="email" name="message-email" class="form-control mb-30" placeholder="Email">#}
+{#                                </div>#}
+{#                                <div class="col-12">#}
+{#                                    <input type="text" name="website" class="form-control mb-30" placeholder="Websites">#}
+{#                                </div>#}
+{#                                <div class="col-12">#}
+{#                                    <textarea name="message" class="form-control mb-30" placeholder="Start the discussion..."></textarea>#}
+{#                                </div>#}
+{#                                <div class="col-12">#}
+{#                                    <button type="submit" class="btn roberto-btn btn-3 mt-15">Post Comment</button>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </form>#}
+{#                    </div>#}
+
+                {% if eventimages %}
+                <section>
+            <div class="container">
+            <div class="row">
+              <div class="gallery col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <h3 class="text-center pb-2 pt-5">Event Gallery</h3>
+                <div id="myDIV" class="text-center  pb-5" >
+
+
+
+                  <div class=" btn roberto-btn" id="{{ events }}" onclick="call(this.id)"><strong>{{ events }}</strong></div>
+
+
+                </div>
+              </div>
+
+             {% for eventimage in eventimages %}
+
+                      <a href="{{ eventimage.image.url}}"
+                         {{ singlealbum }}
+                        class="glightbox gallery_product  col-lg-4 col-md-6  filter {{ eventimage.event }}">
+                        <img src="{{ eventimage.image.url}}">
+                      </a>
+
+                    {% endfor %}
+
+
+            </div>
+          </div>
+
+            </section>
+                 {% endif %}
+                </div>
+
+
+
+
+
+                <div class="col-12 col-sm-8 col-md-6 col-lg-4">
+
+
+                    <div class="roberto-sidebar-area pl-md-4">
+
+                        <!-- Recent News -->
+                        <div class="single-widget-area mb-100">
+                            <h4 class="widget-title mb-30">Recent News</h4>
+
+
+                            {% for event in allevents %}
+
+
+
+
+                            <!-- Single Recent Post -->
+                            <div class="single-recent-post d-flex">
+                                <!-- Thumb -->
+                                <div class="post-thumb">
+                                    <a href="{% url 'adventureapp:clienteventsdetail' event.id %}"><img style="height:80px; width: 100% " src="{{ event.image.url}}" alt=""></a>
+                                </div>
+                                <!-- Content -->
+                                <div class="post-content">
+                                    <!-- Post Meta -->
+                                    <div class="post-meta">
+                                        <a href="#" class="post-author">{{ event.date }}</a>
+                                        <a href="#" class="post-tutorial">Event</a>
+                                    </div>
+                                    <a href="{% url 'adventureapp:clienteventsdetail' event.id %}" class="post-title">{{ event.title}}</a>
+                                </div>
+                            </div>
+                            {% endfor %}
+
+                        </div>
+
+                        <!-- Newsletter -->
+                        <div class="single-widget-area mb-100">
+                            <div class="newsletter-form">
+                                <h5>Newsletter</h5>
+                                <p>Subscribe our newsletter gor get notification new updates.</p>
+
+                                <form action="{% url 'adventureapp:subscribercreate' %}" method="post">
+                                    {% csrf_token %}
+                                    {{subscribeform.email}}
+                                    <button type="submit" class="btn roberto-btn w-100">Subscribe</button>
+                                </form>
+                            </div>
+                        </div>
+
+
+
+                        <!-- Popular Tags -->
+{#                        <div class="single-widget-area mb-100 clearfix">#}
+{#                            <h4 class="widget-title mb-30">Tags</h4>#}
+{#                            <!-- Popular Tags -->#}
+{#                            <ul class="popular-tags">#}
+{#                                <li><a href="#">Bed,</a></li>#}
+{#                                <li><a href="#">Hotel,</a></li>#}
+{#                                <li><a href="#">Travel,</a></li>#}
+{#                                <li><a href="#">Restaurant,</a></li>#}
+{#                                <li><a href="#">Sport,</a></li>#}
+{#                                <li><a href="#">Trip,</a></li>#}
+{#                                <li><a href="#">Music,</a></li>#}
+{#                                <li><a href="#">Holiday,</a></li>#}
+{#                                <li><a href="#">Tourist,</a></li>#}
+{#                                <li><a href="#">Foody,</a></li>#}
+{#                                <li><a href="#">Resorts.</a></li>#}
+{#                            </ul>#}
+{#                        </div>#}
+
+                        <!-- Instagram -->
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Blog Area End -->
+
+
+
+{% endblock %}
+
+
+
+{% block js %}
+
+  <script src="{% static 'clientstatic/gallery+lightbox/js/glightbox.min.js' %}"></script>
+    <script src="{% static 'clientstatic/gallery+lightbox/js/index.js' %}"></script>
+{% endblock %}

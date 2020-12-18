@@ -1,0 +1,202 @@
+
+
+
+{% extends 'clienttemplates/clientbase.html' %}
+
+{% block css %}
+    <style>
+    @media only screen and (max-device-width: 480px){
+
+
+
+        }
+
+    .roberto-contact-form{
+        font-size: 15px;
+
+    }
+    .roberto-contact-form .form-control {
+
+    font-size: 16px;
+    border: 1px solid lightgray;
+}
+
+
+    </style>
+
+{% endblock %}
+
+{% block content %}
+
+<div>
+
+
+</div>
+
+
+
+<!-- Breadcrumb Area Start -->
+    <div class="breadcrumb-area contact-breadcrumb bg-img bg-overlay jarallax" style="background-image: url({{ org.profile_image.url}});">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="breadcrumb-content text-center mt-100">
+                        <h2 class="page-title">Contact Us</h2>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb justify-content-center">
+                                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Contact Us</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb Area End -->
+
+    <!-- Google Maps & Contact Info Area Start -->
+    <section class="google-maps-contact-info">
+        <div class="container-fluid ">
+            <div class="google-maps-contact-content ">
+                <div class="row ">
+                    <!-- Single Contact Info -->
+                    <div class="col-6 so col-lg-3">
+                        <div class="single-contact-info">
+                            <i class="fa fa-phone" aria-hidden="true"></i>
+                            <h4>Phone</h4>
+                            <p>{{ org.contact_no}}</p>
+                        </div>
+                    </div>
+                    <!-- Single Contact Info -->
+                    <div class="col-6 col-lg-3">
+                        <div class="single-contact-info">
+                            <i class="fa fa-map-marker" aria-hidden="true"></i>
+                            <h4>Address</h4>
+                            <p>{{ org.address}}</p>
+                        </div>
+                    </div>
+                    <!-- Single Contact Info -->
+                    <div class="col-sm-12 col-lg-3">
+                        <div class="single-contact-info">
+                            <i class="fa fa-clock-o" aria-hidden="true"></i>
+                            <h4>Open time</h4>
+                            <p>7:00 am to 9:00 pm</p>
+                        </div>
+                    </div>
+                    <!-- Single Contact Info -->
+                    <div class="col-sm-12 col-lg-3">
+                        <div class="single-contact-info">
+                            <i class="fa fa-envelope-o" aria-hidden="true"></i>
+                            <h4>Email</h4>
+                            <p>{{ org.email}}</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-lg-3">
+                        <div class="single-contact-info">
+                            <i class="fa fa-facebook" aria-hidden="true"></i>
+                            <h4>Facebook</h4>
+                            <p>{{ org.facebook}}</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-lg-3">
+                        <div class="single-contact-info">
+                            <i class="fa fa-phone" aria-hidden="true"></i>
+                            <h4>Viber</h4>
+                            <p>{{ org.viber}}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Google Maps -->
+                 <div class="google-maps">
+
+                    <iframe src="{{ org.map_location }}" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+                </div>
+
+
+            </div>
+        </div>
+    </section>
+    <!-- Google Maps & Contact Info Area End -->
+
+
+
+    <!-- Contact Form Area Start -->
+    <div class="roberto-contact-form-area section-padding-100  ">
+
+        <div class="container shadow-lg p-3 mb-5 bg-white rounded">
+            <div class="row ">
+                <div class="col-12 ">
+                    <!-- Section Heading -->
+                    <div class="section-heading text-center wow fadeInUp" data-wow-delay="100ms">
+                        <h3>Message Us</h3><br>
+                        <h6>Leave Message</h6>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <!-- Form -->
+                    <div class="roberto-contact-form font-weight-bolder">
+                        <form action="{% url 'adventureapp:clientcontactcreate' %}" method="post">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-12 col-lg-6 wow fadeInUp" data-wow-delay="100ms">
+                                     <label>Name<small>*</small> </label>
+                                    {{ contactform.sender }}
+                                </div>
+                                <div class="col-12 col-lg-6 wow fadeInUp" data-wow-delay="100ms">
+                                    <label >Email<small>*</small> </label>
+                                    {{ contactform.email }}
+                                </div>
+                                <div class="col-12 col-lg-6 wow fadeInUp" data-wow-delay="100ms"><br>
+                                     <label >Mobile No.<small>*</small> </label>
+                                    {{ contactform.mobile }}
+                                </div>
+                                <div class="col-12 col-lg-6 wow fadeInUp" data-wow-delay="100ms"><br>
+                                    <label >Subject<small>*</small> </label>
+                                    {{ contactform.subject }}
+                                </div>
+                                 <div class="col-12 col-lg-12 wow fadeInUp" data-wow-delay="100ms"><br>
+                                    <label >Message<small>*</small> </label>
+                                    {{ contactform.message }}
+                                </div>
+                                <div class="col-12 text-center wow fadeInUp" data-wow-delay="100ms"><br>
+                                    <button type="submit" class="btn roberto-btn mt-15">Send Message</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Contact Form Area End -->
+
+    <!-- Call To Action Area Start -->
+    <section class="roberto-cta-area">
+        <div class="container">
+            <div class="cta-content bg-img bg-overlay jarallax" style="background-image: url({{ org.profile_image.url}});">
+                <div class="row align-items-center">
+                    <div class="col-12 col-md-7">
+                        <div class="cta-text mb-50">
+                            <h2>Contact us now!</h2>
+                            <h6>Contact {{org.contact_no}} to book directly or for advice</h6>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-5 text-right">
+                        <a href="{% url 'adventureapp:clientcontactcreate' %}" class="btn roberto-btn mb-50">Contact Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Call To Action Area End -->
+
+
+{% endblock %}

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+{%  for book in booking%}
+    {% if book.email == 'adhikarepallav@gmail.com' %}
+      <h2> {{ book }} </h2>
+
+{#    <a href="{% url 'adventureapp:clientbookingcancellation' book.id  %}"><button>cancel booking</button></a>#}
+ {% endif %}
+{% endfor %}
+
+</body>
+</html>

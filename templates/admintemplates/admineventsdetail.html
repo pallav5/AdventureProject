@@ -1,0 +1,133 @@
+{% extends 'admintemplates/adminbase.html' %}
+{% block css %}
+
+
+    <style>
+    @media (max-width:1281px),(min-width:801px) {
+
+          .thumbnail > img {
+                height: 300px;
+                width: 500px;
+            }
+
+    }
+     @media only screen and (max-device-width: 480px){
+
+
+        .thumbnail > img {
+                height: 100%;
+                width: 100%;
+            }
+    }
+    </style>
+
+{% endblock %}
+{% block title %} Events Detail{% endblock %}
+
+
+
+
+{% block content %}
+
+
+
+		  <div class="header">
+                        <h1 class="page-header">
+                        {{ albumdetail.title }}  (details)
+                        </h1>
+						<ol class="breadcrumb">
+					  <li><a href="#">Home</a></li>
+					  <li><a href="#">Empty</a></li>
+					  <li class="active">Data</li>
+					</ol>
+
+		</div>
+            <div id="page-inner">
+
+			  <div class="row">
+
+                    <div class="col-md-12">
+                    <div class="card">
+                    <div class="card-content">
+
+                           <div class="card-action">
+                                <h3 class="text-center">Event Image</h3> <br>
+
+      <div class="thumbnail galleryimage">
+
+
+          <img src="{{eventdetail.image.url}}" alt="Lights" >
+
+
+
+              </div>
+
+                        </div>
+                        <div class="card-action">
+                            Title :
+                          Event "{{ eventdetail.title }}"
+                        </div>
+                        <div class="card-action">
+                           <span>Description:</span>  {{ eventdetail.description }}
+                        </div>
+                        <div class="card-action">
+                           <span>Date:</span>  {{ eventdetail.date}}
+                        </div>
+                        <div class="card-action">
+                           <span>Location:</span>  {{ eventdetail.location}}
+                        </div>
+                         </div>
+
+
+
+						 </div>
+
+
+
+
+				</div>
+
+
+             <!-- /. PAGE INNER  -->
+            </div>
+
+  <div>
+  <h2 class="text-center"> Event Image Gallery</h2>
+      <br>
+
+  <div class="row pt-5">
+      {% for image in images%}
+
+
+
+
+
+    <div class="col-md-4">
+      <div class="thumbnail gimage">
+        <a href="{{image.image.url}}" target="_blank">
+          <img src="{{image.image.url}}" style=" height: 200px; width: 300px;" alt="Lights" >
+        </a>
+
+           <td><a class="demo btn btn-sm btn-danger" href="{% url 'adventureapp:admineventsimagedelete' image.id %}">Delete </a></td>
+           <td><a class="btn btn-sm btn-success" href="{% url 'adventureapp:admineventsupdate' eventdetail.id %}">Update </a></td>
+
+      </div>
+    </div>
+       {% endfor %}
+
+         </div>
+
+            </div>
+            </div>
+
+
+
+
+{% endblock %}
+{% block js %}
+    <script>$('.demo').confirmation({
+         placement    :'top',
+
+
+});</script>
+{% endblock %}

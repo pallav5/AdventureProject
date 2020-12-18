@@ -1,0 +1,123 @@
+{% extends 'admintemplates/adminbase.html' %}
+{% load static %}
+
+{% block css %}
+
+
+
+{% endblock %}
+{% block roomactive %}active{% endblock %}
+
+
+{% block content %}
+
+
+
+
+    <div class="header ">
+                        <h1 class="page-header">
+                            Features
+
+                        </h1>
+						<ol class="breadcrumb">
+					  <li><a href="#">Home</a></li>
+					  <li><a href="#">Tables</a></li>
+					  <li class="active">Data</li>
+					</ol>
+
+		</div>
+
+
+    <div id="page-inner">
+    <div class="card ">
+                        <div  class="card-action text-center">
+                             <a href="{% url 'adventureapp:adminfeaturesadd' %}" class="pull-right"><i class="fa fa-plus-circle text-danger " style="font-size: 60px" aria-hidden="true"></i></a>
+                          <h3> Features</h3>
+
+                        </div>
+                        <div class="card-content">
+                            <div class=" table table-responsive  table-bordered ">
+
+                                <table id="example" class="display nowrap" style="width:100%">
+                             <thead>
+                                    <tr>
+                                      <th scope="col">SN.</th>
+                                      <th scope="col">Title</th>
+                                      <th scope="col">Image</th>
+                                      <th scope="col">Description</th>
+                                      <th scope="col">Actions</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                  {% for feature in features %}
+
+
+                                    <tr>
+                                      <th scope="row">{{ forloop.counter }}</th>
+                                      <td>{{ feature.title }}</td>
+                                      <td>{% if feature.image %}
+
+
+                                          {{ feature.image}}</td>
+                                        {% endif %}
+                                      <td> <a tabindex="0" class="btn btn-sm btn-danger" data-container="body" data-placement="top" role="button" data-toggle="popover" data-trigger="focus" title="Description" data-content=" {% if feature.description %} {{ feature.description}} {% endif %}">View description</a></td>
+                                    <td>
+                                        <a type="button" class="btn btn-sm btn-warning" href="{% url 'adventureapp:adminfeaturesupdate' feature.id %}">Update</a>
+                                        <a onclick="return confirm('Are you sure you want to delete?');" id="delete-button" type="button" class=" demo btn btn-sm btn-danger"  href="{% url 'adventureapp:adminfeaturesdelete' feature.id %}">Delete</a></td>
+                                    </tr>
+
+                                  {% endfor %}
+
+
+
+                                  </tbody>
+
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+{% endblock %}
+{% block js %}
+
+{#    <script>#}
+{#    $('.demo').confirmation({#}
+{#         placement       :'top',#}
+{#        title           : 'Are you sure?',#}
+{#      btnOkClass      : 'btn btn-sm btn-danger',#}
+{#      btnOkLabel      : 'Delete',#}
+{#      btnOkIcon       : 'glyphicon glyphicon-ok',#}
+{#      btnCancelClass  : 'btn btn-sm btn-default',#}
+{#      btnCancelLabel  : 'Cancel',#}
+{#      btnCancelIcon   : 'glyphicon glyphicon-remove',#}
+{##}
+{#});#}
+{#     </script>#}
+
+
+
+      <script>
+
+
+   $(document).ready(function() {
+    var table = $('#example').DataTable( {
+        "autoWidth": false,
+        rowReorder: {
+            selector: 'td:nth-child(2)'
+        },
+        responsive: true
+    } );
+} );
+
+$(function () {
+  $('[data-toggle="popover"]').popover()
+})
+
+     </script>
+
+{% endblock %}

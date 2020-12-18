@@ -1,0 +1,765 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Booking Chart</title>
+
+<link rel='stylesheet' href='{% static 'adminstatic/gantt/css/dhtmlxscheduler.css' %}'>
+    <link href="{% static 'adminstatic/css/bootstrap.css' %}" rel="stylesheet" />
+    <script src='{% static 'adminstatic/gantt/js/dhtmlxscheduler.js' %}'></script>
+    <script src='{% static 'adminstatic/gantt/js/dhtmlxscheduler_limit.js' %}'></script>
+    <script src='{% static 'adminstatic/gantt/js/dhtmlxscheduler_timeline.js' %}'></script>
+    <script src='{% static 'adminstatic/gantt/js/dhtmlxscheduler_tooltip.js' %}'></script>
+    <script src='{% static 'adminstatic/gantt/js/dhtmlxscheduler_collision.js' %}'></script>
+    <script src='{% static 'adminstatic/gantt/js/dhtmlxscheduler_minical.js' %}'></script>
+    <script src='{% static 'adminstatic/gantt/js/dhtmlxscheduler_editors.js' %}'></script>
+
+
+    <style>
+        html, body{
+  margin:0;
+  padding:0;
+  height:100%;
+  overflow:hidden;
+}
+
+
+
+         #my_form {
+    position: absolute;
+    top: 100px;
+    left: 200px;
+    z-index: 10001;
+    display: none;
+    background-color: white;
+    border: 2px outset gray;
+    padding: 20px;
+    font-family: Tahoma;
+    font-size: 10pt;
+  }
+
+  #my_form label {
+    width: 200px;
+  }
+
+.timeline_item_cell {
+  width: 32%;
+  font-size: 14px;
+  text-align: center;
+}
+
+.timeline_item_separator {
+  background-color: #CECECE;
+  width: 1px;
+  height: 100% !important;
+}
+
+.dhx_matrix_scell{
+  text-align:left;
+}
+
+.timeline_item_separator,
+.timeline_item_cell {
+  vertical-align:top;
+  height: 100% !important;
+  display:inline-block;
+  line-height: 50px;
+  vertical-align:top;
+}
+
+.collection_label {
+  z-index: 2;
+}
+
+.room_status {
+	position: relative;
+}
+
+
+.room_status_indicator {
+	position: absolute;
+    background-color: red;
+	left: 0;
+	top: 0;
+	right: 95%;
+	bottom: 0;
+}
+
+ .red_section {
+    background-color: red;
+    -webkit-box-shadow: 0px 1px 1px 0px rgba(255,0,0,1);
+    -moz-box-shadow: 0px 1px 1px 0px rgba(255,0,0,1);
+    box-shadow: 0px 1px 1px 0px rgba(255,0,0,1);
+  }
+
+
+.room_status_indicator_False {
+	background-color: #4CAF50;
+}
+
+.room_status_indicator_True {
+	background-color: red;
+}
+
+.room_status_indicator_3 {
+	background-color: #FFA000;
+}
+
+.event_1 {
+	background-color: #FFB74D !important;
+}
+
+.event_2 {
+	background-color: #9CCC65 !important;
+}
+
+.event_3 {
+	background-color: #40C4FF !important;
+}
+
+.event_4 {
+	background-color: #BDBDBD !important;
+}
+
+.booking_status, .booking_paid {
+	position: absolute;
+	right: 5px;
+}
+
+.booking_status {
+	top: 2px;
+}
+
+.booking_paid {
+	bottom: 2px;
+}
+
+.dhx_cal_event_line:hover .booking-option {
+	background: none !important;
+}
+
+.dhx_cal_prev_button {
+    background-image: url("{% static 'adminstatic/gantt/img/arrow_left.png' %}");
+}
+
+        .dhx_cal_next_button {
+    background-image: url("{% static 'adminstatic/gantt/img/arrow_right.png' %}");
+}
+
+
+        .highlighted_timespan{
+    background:lime;
+    opacity:0.3;
+  }
+
+.timeline_weekend {
+    background-color: #fff176;
+}
+
+    </style>
+
+
+
+</head>
+<body>
+
+{#<form action="{% url 'adventureapp:bookingchart' %}" method="post">#}
+{#    <label for="description">Event text </label><input type="text" name="description" value="" id="description"><br>#}
+{#    <h4>Status</h4>#}
+{##}
+{#    {% for c in c_status %}#}
+{##}
+{#	<label for="custom1">Custom1</label><b><input type="radio" name="custom1" value="" id="custom1"></b><br>#}
+{#    {% endfor %}#}
+{##}
+{#	<label for="custom2">Custom 2 </label><input type="text" name="custom2" value="" id="custom2"><br><br>#}
+{#        {% csrf_token %}#}
+{#    {{ c_form.as_p }}#}
+{#    <h1>{{ customer_status }}</h1>#}
+{#	<input type="submit" name="" value="submit" id="" style='width:100px;'>#}
+{#	<input type="button" name="save" value="Save" id="save" style='width:100px;' onclick="save_form()">#}
+{#	<input type="button" name="close" value="Close" id="close" style='width:100px;' onclick="close_form()">#}
+{#	<input type="button" name="delete" value="Delete" id="delete" style='width:100px;' onclick="delete_event()">#}
+{#</form>#}
+
+
+
+<div id="my_form">
+<form id ='submit-form' method="post">
+
+        {% csrf_token %}
+ <strong>Customer Status:</strong> <br>
+    <br>
+
+    {{ c_form.customer_status }}
+
+
+
+    <br>
+    <button class="btn btn-sm btn-success" id="button" type="submit" onclick="window.location.reload();  return updateTxt(this);"> Submit </button>
+    	<input class="btn btn-sm btn-danger" type="button" name="close" value="Close" id="close" style='width:100px;' onclick="close_form() ,window.location.reload();">
+
+</form>
+
+
+</div>
+<div class="container-fluid" >
+<h3 class="center">Booking Chart</h3><a href="{% url 'adventureapp:adminhome' %}">  <button class="btn btn-sm btn-success">
+    Home </button></a>
+
+</div>
+<br>
+
+<div id="scheduler_here" class="dhx_cal_container" style='width:100%; height:100%;'>
+		<div class="dhx_cal_navline">
+
+        <div class="dhx_cal_prev_button">&nbsp;</div>
+        <div class="dhx_cal_next_button">&nbsp;</div>
+			<div class="dhx_cal_today_button"></div>
+
+
+			<div class="dhx_cal_date"></div>
+
+			<select id="room_filter" onchange='showRooms(this.value)'></select>
+		</div>
+
+
+		<div class="dhx_cal_header">
+		</div>
+		<div class="dhx_cal_data">
+		</div>
+
+	</div>
+<script src="{% static 'adminstatic/js/jquery-1.10.2.js' %}"></script>
+<script type="text/javascript">
+
+
+       function updateTxt(form)
+        {
+
+        var field2 = document.getElementById('id_customer_status').options[document.getElementById('id_customer_status').selectedIndex].value;
+        {#alert(field2);#}
+        if (field2 === "cancelled"  ){
+         return confirm('Do you really want to cancel booking?');
+
+        }
+
+    }
+
+
+
+scheduler.config.xml_date = "%Y-%m-%d %H:%i";
+scheduler.config.details_on_dblclick = true;
+scheduler.config.details_on_create = true;
+
+scheduler.init('scheduler_here', new Date(2018, 2, 1), "week");
+
+
+var html = function(id) { return document.getElementById(id); }; //just a helper
+
+scheduler.showLightbox = function(id) {
+  var ev = scheduler.getEvent(id);
+  scheduler.startLightbox(id, html("my_form"));
+    var a = scheduler.serverList("stat")
+  console.log(html("description"))
+  html("description").focus();
+  html("description").value = ev.text;
+
+  html("custom1").innerHTML = a;
+
+  html("custom2").value = ev.custom2 || "";
+};
+
+
+ function getBookingStatus(key) {
+     var bookingStatus = findInArray(scheduler.serverList("bookingStatuses"), key);
+     return !bookingStatus ? '' : bookingStatus.label;
+ }
+
+
+
+function save_form(event) {
+
+
+
+  {#bs.value = html("custom1").value;#}
+  ev.text = html("description").value;
+  ev.custom1 = html("custom1").value;
+  ev.custom2 = html("custom2").value;
+
+  scheduler.endLightbox(true, html("my_form"));
+}
+function close_form() {
+  scheduler.endLightbox(false, html("my_form"));
+}
+
+function delete_event() {
+  var event_id = scheduler.getState().lightbox_id;
+  scheduler.endLightbox(false, html("my_form"));
+  scheduler.deleteEvent(event_id);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    window.showRooms = function showRooms(type) {
+  var allRooms = scheduler.serverList("rooms");
+	var visibleRooms ;
+	if (type == 'all') {
+		visibleRooms = allRooms.slice();
+	}else{
+        visibleRooms = allRooms
+          .filter(function(room){
+             return room.type == type;
+        });
+    }
+
+  scheduler.updateCollection("visibleRooms", visibleRooms);
+};
+
+scheduler.locale.labels.section_custom="Section";
+{#scheduler.config.details_on_create=false;#}
+{#scheduler.config.details_on_dblclick=false;#}
+
+
+//===============
+//Configuration
+//===============
+
+scheduler.serverList("roomTypes");
+scheduler.serverList("roomStatuses");
+scheduler.serverList("bookingStatuses");
+scheduler.serverList("rooms");
+
+scheduler.createTimelineView({
+	name:	"timeline",
+	x_unit: "day",
+	x_date: "%j",
+	x_step: 1,
+	x_size: 31,
+	section_autoheight: false,
+	y_unit:	scheduler.serverList("visibleRooms"),
+	y_property:	"room",
+	render:"bar",
+	round_position:true,
+  event_dy: "full",
+	dy:60,
+	second_scale:{
+		x_unit: "month",
+		x_date: "%F, %Y"
+	}
+});
+
+scheduler.attachEvent("onBeforeViewChange", function(old_mode,old_date,mode,date){
+	var year = date.getFullYear();
+	var month= (date.getMonth() + 1);
+	var d = new Date(year, month, 0);
+	var daysInMonth = d.getDate();
+  var timeline = scheduler.getView('timeline');
+  timeline.x_size = daysInMonth;
+	return true;
+});
+
+scheduler.date.timeline_start = scheduler.date.month_start;
+
+scheduler.date.add_timeline = function(date, step){
+	if(step > 0){
+		step = 1;
+	}else if(step < 0){
+		step = -1;
+	}
+	return scheduler.date.add(date, step, "month")
+};
+
+
+
+
+
+
+{#customs#}
+
+scheduler.addMarkedTimespan({
+  days: new Date(),
+  zones: "fullday",
+  css: "timeline_weekend"
+});
+
+
+
+
+var currentTime = new Date();
+    currentTime.setHours(0, 0, 0, 0);
+    scheduler.templates.timeline_cell_class = function(ev, date, section) {
+      if (date.toString() == currentTime.toString())
+      {
+        return "yellow";
+      }
+    }
+
+
+   scheduler.attachEvent("onBeforeDrag", function(id){
+	return false;
+	});
+
+scheduler.config.dblclick_create = false;
+
+scheduler.attachEvent("onBeforeEventCreated", function (e){
+    //any custom logic here
+    return false;
+});
+{#scheduler.attachEvent("onBeforeLightbox", function (id){#}
+{##}
+{##}
+{#    return false;#}
+{#});#}
+{#end customs#}
+
+
+
+//===============
+//Data loading
+//===============
+
+
+
+{#scheduler.config.lightbox.sections=[#}
+{##}
+  {#{map_to: "Name", name: "text", type: "template", options: s},#}
+{#  {map_to: "room", name: "room", type: "select", options: scheduler.serverList("visibleRooms")},#}
+{#  {map_to: "status", name: "status", type: "radio", options: scheduler.serverList("stat")},#}
+{#  {map_to: "time", name: "time", type: "calendar_time"}#}
+{#];#}
+{#scheduler.locale.labels.section_text = 'Name';#}
+{#scheduler.locale.labels.section_room = 'Room';#}
+{#scheduler.locale.labels.section_status = 'Cus_Status';#}
+{#scheduler.locale.labels.section_is_paid = 'Paid';#}
+{#scheduler.locale.labels.section_time = 'Time';#}
+{##}
+{##}
+{#scheduler.templates.lightbox_header = function (start, end, ev) {#}
+{#    var formatFunc = scheduler.date.date_to_str('%d-%m-%Y');#}
+{#    return formatFunc(start) + " - " + formatFunc(end);#}
+{#};#}
+
+{#scheduler.attachEvent('onEventCreated', function (event_id) {#}
+{#  var ev = scheduler.getEvent(event_id);#}
+{#  ev.status = 1;#}
+{#  ev.is_paid = false;#}
+{#  ev.text = 'new booking';#}
+{#});#}
+
+scheduler.attachEvent("onParse", function(){
+  showRooms("all");
+
+  var roomSelect = document.querySelector("#room_filter");
+  var types = scheduler.serverList("roomTypes");
+  var typeElements = ["<option value='all'>All</option>"];
+  types.forEach(function(type){
+     typeElements.push("<option value='"+type.key+"'>" + type.label +"</option>");
+  });
+  roomSelect.innerHTML = typeElements.join("")
+
+});
+
+var headerHTML = "<div class='timeline_item_separator'></div>" +
+    "<div class='timeline_item_cell'>Number</div>" +
+    "<div class='timeline_item_separator'></div>" +
+    "<div class='timeline_item_cell'>Type</div>" +
+    "<div class='timeline_item_separator'></div>" +
+    "<div class='timeline_item_cell room_status'>Status</div>";
+
+scheduler.locale.labels.timeline_scale_header = headerHTML;
+
+scheduler.attachEvent("onTemplatesReady", function(){
+
+  function findInArray(array, key) {
+    for (var i = 0; i < array.length; i++) {
+      if (key == array[i].key)
+        return array[i];
+    }
+    return null;
+  }
+
+scheduler.attachEvent("onEventCollision", function (ev, evs) {
+  for (var i = 0; i < evs.length; i++) {
+    if (ev.room != evs[i].room) continue;
+    dhtmlx.message({
+      type: "error",
+      text: "This room is already booked for this date."
+    });
+  }
+  return true;
+});
+
+
+
+  function getRoomType(key) {
+    return findInArray(scheduler.serverList("roomTypes"), key).label;
+  }
+
+  function getRoomStatus(key) {
+    return findInArray(scheduler.serverList("roomStatuses"), key);
+  }
+
+  function getRoom(key) {
+    return findInArray(scheduler.serverList("rooms"), key);
+  }
+
+  scheduler.templates.timeline_scale_label = function (key, label, section) {
+    var roomStatus = getRoomStatus(section.status);
+    return ["<div class='timeline_item_separator'></div>",
+            "<div class='timeline_item_cell'>" + label + "</div>",
+            "<div class='timeline_item_separator'></div>",
+            "<div class='timeline_item_cell'>" + getRoomType(section.type) + "</div>",
+            "<div class='timeline_item_separator'></div>",
+            "<div class='timeline_item_cell room_status'>",
+
+
+            "<span class='room_status_indicator room_status_indicator_" + section.status +"'></span>",
+
+            "<span class='status-label'>" + roomStatus.label + "</span>",
+            "</div>"].join("");
+  };
+
+  scheduler.templates.event_class = function (start, end, event) {
+    return "event_" + (event.status || "");
+  };
+
+  function getBookingStatus(key) {
+    var bookingStatus = findInArray(scheduler.serverList("bookingStatuses"), key);
+    return !bookingStatus ? '' : bookingStatus.label;
+  }
+
+  function getPaidStatus(isPaid) {
+    return false
+  }
+
+
+
+
+
+
+ {#Changing Booking Statues #}
+
+scheduler.attachEvent("onDblClick", function (id, event){
+ {# var resource = scheduler.getEvent(id).id;#}
+ {# var r = new Array()#}
+ {#   a =  r.push(resource)#}
+ {#event.stopPropagation();#}
+
+    var d = id;
+
+
+   console.log(d)
+
+  var url_mask = "{% url 'adventureapp:cstatusview' 12345 %}".replace(/12345/, id.toString());
+    $(document).ready(function(){
+
+  $("#submit-form").submit(function(e){
+	// prevent from normal form behaviour
+      e.preventDefault();
+      $('#button').attr("disabled", true);
+
+   	// serialize the form data
+     	var serializedData = $(this).serialize();
+     	$.ajax({
+     		type : 'POST',
+     		url :  url_mask,
+     		data : serializedData,
+     		success : function(response){
+			//reset the form after successful submit
+               $("#submit-form")[0].reset()
+     		},
+     		error : function(response){
+     			console.log(response)
+     		},
+           complete: function() {
+               //Ajax request is finished, so we can enable
+               //the button again.
+               $('#button').attr("disabled", false);
+           }
+
+     	});
+  });
+});
+
+  return true;
+});
+
+  var eventDateFormat = scheduler.date.date_to_str("%d %M %Y");
+  scheduler.templates.event_bar_text = function (start, end, event) {
+
+
+
+
+    {#var paidStatus = getPaidStatus(event.is_paid);#}
+    var startDate = eventDateFormat(event.start_date);
+    var endDate = eventDateFormat(event.end_date);
+    return [
+        event.fname  + "<br>" + event.lname + "," + "<br>" + getBookingStatus(event.status) ,
+            {#startDate + " - " + endDate,#}
+            {#"<div class='booking_status booking-option'>" + getBookingStatus(event.status) + "</div>"#}
+    ].join();
+            {#"<div class='booking_paid booking-option'>" + paidStatus + "</div>"].join("");#}
+  };
+
+
+
+  {#Tooltip#}
+
+   scheduler.templates.tooltip_text = function (start, end, event) {
+    var room = getRoom(event.room) || {label: ""};
+
+
+    var html = [];
+    html.push("Id: <b>" + event.id+ "</b>");
+    html.push("Name: <b>" + event.fname + event.lname + "</b>");
+    html.push("Email: <b>" + event.email + "</b>");
+    html.push("Room: <b>" + room.label + "</b>");
+    html.push("Check-in: <b>" + eventDateFormat(start) + "</b>");
+    html.push("Check-out: <b>" + eventDateFormat(end) + "</b>");
+    html.push("Customer status: <b>" + getBookingStatus(event.status) + "</b>");
+    {#html.push(getBookingStatus(event.status) + ", " + getPaidStatus(event.is_paid));#}
+    return html.join("<br>")
+  };
+
+});
+
+
+scheduler.init('scheduler_here',new Date(),"timeline");
+scheduler.parse(JSON.stringify({
+	"data":[
+
+
+                {% for rt in booking %}
+
+
+
+                {"room":"{{ rt.room.id}}",
+                "start_date":"{{ rt.check_in|date:'Y-m-d'}}",
+
+                "end_date":"{{ rt.check_out|date:'Y-m-d'}}",
+
+                "email":"{{rt.email}}",
+                "fname":"{{rt.first_name}} ",
+                "lname":"{{ rt.last_name }} ",
+                "status":"{{ rt.customer_status }}",
+                "id":"{{ rt.id }}",
+                "color":"{% if rt.customer_status == "confirmed" %}#76B007 {% elif rt.customer_status == "checked_out" %} grey {% elif rt.customer_status == "cancelled" %} black {% else %} #FE7510 {% endif %}"
+
+
+                },
+                {% endfor %}
+
+
+
+{#		{"room":"1","start_date":"2020-09-02","end_date":"2020-09-23","text":"A-12","status":"1"},#}
+{#		{"room":"3","start_date":"2020-09-07","end_date":"2020-09-21","text":"A-45","status":"2"},#}
+{#		{"room":"5","start_date":"2020-09-06","end_date":"2020-09-14","text":"A-58","status":"3"},#}
+{#		{"room":"7","start_date":"2020-09-04","end_date":"2020-09-18","text":"A-28","status":"4"}#}
+		],
+	"collections":{
+		"roomTypes":[
+            {% for room in room %}
+			{"value":"{{ room.type}}","label":"{{ room.type }}"},
+            {% endfor %}
+
+
+{#			{"value":"1","label":"1 bed"},#}
+{#			{"value":"2","label":"2 beds"},#}
+{#			{"value":"3","label":"3 beds"},#}
+{#			{"value":"4","label":"4 beds"}#}
+		],
+		"roomStatuses":[
+            {% for rt in room %}
+
+
+			{"value":"{{ rt.is_reserved }}","label":"{% if rt.is_reserved == True %}Reserved {% else %} Available {% endif %}"},
+
+
+            {% endfor %}
+
+            {#{"value":"1","label":"ready"},#}
+            {##}
+			{#{"value":"2","label":"Dirty"},#}
+			{#{"value":"3","label":"Clean up"}#}
+		],
+		"bookingStatuses":[
+
+		 {% for rt in booking %}
+
+         {  "id":"{{ rt.id }}",
+             "value":"{{ rt.customer_status }}",
+         "label":"{% if rt.customer_status == "confirmed" %}Confirmed {% elif  rt.customer_status == "checked_out" %} Checked out{% elif  rt.customer_status == "cancelled" %} Cancelled   {% else %} New  {% endif %}"},
+
+
+            {% endfor %}
+{#			{"value":"1","label":"New"},#}
+{#			{"value":"2","label":"Confirmed"},#}
+{#			{"value":"3","label":"Arrived"},#}
+{#			{"value":"4","label":"Checked Out"}#}
+		],
+		"rooms":[
+{#            {% for books in booking %}#}
+{##}
+{#			{"value":"{{ books.room.id}}","label":"{{ books.room.number}}","type":"{{ books.room.type}}","status":"{{ books.room.is_reserved }}"},#}
+{#              {% endfor %}#}
+
+        {% for room in room %}
+			{"value":"{{ room.id}}","label":"{{ room.number}}","type":"{{ room.type}}","status":"{{ room.is_reserved }}"},
+
+            {% endfor %}
+
+
+
+
+
+
+{#			{"value":"1","label":"102","type":"1","status":"3"},#}
+{#			{"value":"2","label":"102","type":"1","status":"3"},#}
+{#			{"value":"3","label":"103","type":"1","status":"2"},#}
+{#			{"value":"4","label":"104","type":"1","status":"1"},#}
+{#			{"value":"5","label":"105","type":"2","status":"1"},#}
+{#			{"value":"6","label":"201","type":"2","status":"2"},#}
+{#			{"value":"7","label":"202","type":"2","status":"1"},#}
+{#			{"value":"8","label":"203","type":"3","status":"3"},#}
+{#			{"value":"9","label":"204","type":"3","status":"3"},#}
+{#			{"value":"10","label":"301","type":"4","status":"2"},#}
+{#			{"value":"11","label":"302","type":"4","status":"2"},#}
+		],
+        "stat":[
+
+            {% for c in c_status %}
+
+            {"value":"{{c.0}}","label":"{{  c.0 }}"},
+            {% endfor %}
+        ]
+	}
+}),"json");
+
+
+{#var tmp = 26#}
+{#   var url_mask = "{% url 'adventureapp:cstatusview' 12345 %}".replace(/12345/, tmp.toString());#}
+{##}
+{#    console.log(url_mask)#}
+
+
+
+</script>
+
+</body>
+</html>

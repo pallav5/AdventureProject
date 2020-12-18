@@ -1,0 +1,104 @@
+{% extends 'admintemplates/adminbase.html' %}
+{% load static %}
+
+{% block css %}
+    <style>
+    .add-row, .delete-row {
+        margin-top: 5px;
+
+    }
+    </style>
+{% endblock %}
+
+
+{% block content %}
+
+
+    <div id="page-inner" xmlns="http://www.w3.org/1999/html">
+			 <div class="row">
+			 <div class="col-lg-12">
+			 <div class="card">
+                        <div class="card-action">
+                            <h3 class="text-center"> <strong> Add Albums and Image Medias </strong></h3>
+                        </div>
+                        <div class="card-content">
+    <form class="col s12 " action = "" method = "post" enctype="multipart/form-data">
+     <h4 class="text-center"> <strong> Album field</strong></h4>
+        {% csrf_token %}
+      <div class="row">
+        <div class=" col s6">
+
+          <label>Title</label>
+            {{ form.title }}
+        </div>
+
+         <div class="col s6">
+
+          <label>Image:</label>
+            {{ form.image }}
+        </div>
+
+
+      </div>
+
+
+        <div class="row">
+            <div class=" col-12">
+
+          <label>Description</label>
+            {{ form.description }}
+        </div>
+
+
+      </div>
+
+        <div class="row">
+            <fieldset>
+                <legend> <h4 class="text-center"> <strong> Images field</strong></h4></legend>
+                 {{ imagemedia_form.management_form}}
+                {{ imagemedia_form.non_form_errors }}
+
+                 {% for form in imagemedia_form.forms %}
+                     <h1> {{ form.id }} </h1>
+            <div class=" col s4 inline {{ imagemedia_form.prefix }}">
+
+
+                    {{ form.image.errors }}
+                        {{ form.image.label_tag }}
+                        {{ form.image }}
+        </div>
+
+
+
+        {% endfor %}
+    </fieldset>
+        </div>
+
+        <div class="row">
+
+            <input type="submit" value="Submit" class="center-block btn btn-lg  btn-success">
+        </div>
+
+    </form>
+	<div class="clearBoth"></div>
+  </div>
+    </div>
+ </div>
+	 </div>
+            </div>
+
+{% endblock %}
+
+{% block js%}
+
+    <script src="{% static 'adminstatic/js/formset/jquery.formset.js' %}" ></script>
+<script type="text/javascript">
+        $(function() {
+            $(".inline.{{ imagemedia_form.prefix }}").formset({
+                prefix: "{{ imagemedia_form.prefix }}",
+            })
+
+        })
+    </script>
+
+{% endblock %}

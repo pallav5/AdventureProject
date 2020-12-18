@@ -1,0 +1,142 @@
+{% extends 'clienttemplates/clientbase.html' %}
+
+{% block css %}
+
+    <style>
+
+      @media (max-width:1281px),(min-width:801px) {
+
+         .d-block > img {
+            width: 350px;
+            height: 230px;
+        }
+
+
+    }
+
+
+     @media only screen and (max-device-width: 480px){
+
+        .d-block > img {
+            height: 100px;
+            width : 200px;
+        }
+
+    }
+
+
+    </style>
+
+{% endblock %}
+
+{% block content %}
+
+ <!-- Breadcrumb Area Start -->
+    <div class="breadcrumb-area bg-img bg-overlay jarallax" style="background-image: url({{ org.profile_image.url}});">
+        <div class="container h-100">
+            <div class="row h-100 align-items-center">
+                <div class="col-12">
+                    <div class="breadcrumb-content text-center">
+                        <h2 class="page-title">Our Gallery</h2>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb justify-content-center">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Gallery</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb Area End -->
+{#<div class="container mt-50">#}
+{#            <div class="row align-items-center">#}
+{#                <div class="col-12 col-lg-12">#}
+{#                    <!-- Section Heading -->#}
+{#                    <div class="section-heading wow fadeInUp" data-wow-delay="200ms">#}
+{#                        <h6>Gallery</h6>#}
+{#                        <h4>Hotel<br>Pics</h4>#}
+{#                    </div>#}
+{##}
+{#                </div>#}
+{##}
+{#                <div class="col-12 col-lg-12">#}
+{#                    <div class="about-us-thumbnail mb-100 wow fadeInUp" data-wow-delay="400ms">#}
+{#                        <div class="row no-gutters">#}
+{##}
+{#                            <div class="col-lg-4 ">#}
+{#                                <div class="single-thumb">#}
+{#                                    <img style="height: 200px; width: 300px;" src="/media/gallery/room-1.jpg" alt="">#}
+{#                                </div>#}
+{##}
+{#                            </div>  <div class="col-lg-4">#}
+{#                                <div class="single-thumb ">#}
+{#                                    <img style="height: 200px; width: 300px;" src="/media/gallery/room-1.jpg" alt="">#}
+{#                                </div>#}
+{##}
+{#                            </div>  <div class="col-lg-4">#}
+{#                                <div class="single-thumb ">#}
+{#                                    <img style="height: 200px; width: 300px;" src="/media/gallery/room-1.jpg" alt="">#}
+{#                                </div>#}
+{##}
+{#                            </div>#}
+{##}
+{##}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+<!-- Page Content -->
+    <div class="container">
+
+      <h1 class="font-weight-light text-center text-lg-left mt-4 mb-0">{{ images.title }} Gallery</h1>
+
+      <hr class="mt-2 mb-5">
+
+      <div class="row text-center text-lg-left">
+
+
+
+<h1> {{ images.first }}</h1>
+
+{#          {% for photo in album.get_photos %}#}
+{#   <img src="{{ photo.image.url }}" />#}
+{##}
+{##}
+{##}
+{#{% endfor %}#}
+
+          {% for album in album %}
+
+              <h2><a href="{% url 'adventureapp:clientgallery' album.id %}"> {{ album }},</a> </h2>
+{#        <div class="col-lg-4 col-md-6 col-6">#}
+{#              <a href="#" class="d-block mb-4 h-100">#}
+{#                    {{ album }}#}
+{#                    <img class="img-fluid img-thumbnail" src="{{ photo.image.url}}" alt="">#}
+{#              </a>#}
+{#            </div>#}
+
+
+
+{% endfor %}
+
+
+
+{#        {% for image in images %}#}
+{##}
+{##}
+{##}
+
+{#              {% endfor %}#}
+
+          </div>
+
+        </div>
+        <!-- /.container -->
+
+{% endblock %}
+{% block js %}
+
+{% endblock %}
